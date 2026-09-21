@@ -1,0 +1,2718 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>e-Pemilos - Pemilihan Ketua & Wakil Ketua OSIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .animated-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .floating { animation: float 6s ease-in-out infinite; }
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
+        .container { width: 100%; padding-left: 1rem; padding-right: 1rem; margin-left: auto; margin-right: auto; }
+        @media (min-width: 640px) { .container { max-width: 640px; } }
+        @media (min-width: 768px) { .container { max-width: 768px; } }
+        @media (min-width: 1024px) { .container { max-width: 1024px; } }
+        .page { display: none; position: relative; z-index: 10; width: 100%; min-height: calc(100vh - 140px); }
+        .page.active { display: block; animation: fadeIn 0.5s ease-out; }
+        main { position: relative; z-index: 10; padding: 1rem; }
+        .card {
+            background: rgba(255, 255, 255, 0.95); border-radius: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            overflow: hidden; position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin-bottom: 1rem;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            position: relative; overflow: hidden; z-index: 20;
+            padding: 1rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .header-gradient::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), #818cf8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        /* ============================================================
+           ============ AUTH PAGES ============
+           ============================================================ */
+        .auth-wrapper { min-height: calc(100vh - 220px); display: flex; align-items: center; justify-content: center; padding: 1.5rem 0; }
+        .auth-card {
+            position: relative; width: 100%; max-width: 460px; margin: 0 auto;
+            border-radius: 1.75rem; overflow: hidden;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 30px 60px -20px rgba(31, 38, 135, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            animation: authCardEnter 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        @keyframes authCardEnter {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .auth-card-header {
+            position: relative; padding: 2rem 1.5rem 4rem; text-align: center;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+            overflow: hidden;
+        }
+        .auth-card-header::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.22) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.35) 0%, transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Cpath d='M0 20h40v1H0zM20 0v40h1V0z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .auth-card-header::after {
+            content: ''; position: absolute; left: -5%; right: -5%; bottom: -1px;
+            height: 70px; background: #ffffff;
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+        .auth-card-header > * { position: relative; z-index: 2; }
+        .auth-header-compact { padding: 1.75rem 1.5rem 3.75rem; }
+        .auth-decor-star {
+            position: absolute; color: rgba(255, 255, 255, 0.7); z-index: 1;
+            animation: starTwinkle 3s ease-in-out infinite; pointer-events: none;
+        }
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.25); }
+        }
+        .auth-logo-badge {
+            position: relative; display: inline-flex; align-items: center; justify-content: center;
+            width: 92px; height: 92px; border-radius: 26px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            margin-bottom: 1rem; animation: logoFloat 4s ease-in-out infinite;
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .auth-logo-badge img {
+            width: 68px; height: 68px; object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+        }
+        .auth-logo-shield {
+            position: absolute; bottom: -4px; right: -4px;
+            width: 28px; height: 28px; border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.5), 0 0 0 3px white;
+        }
+        .auth-header-title {
+            font-size: 1.35rem; font-weight: 900; color: white;
+            letter-spacing: -0.02em; margin-bottom: 0.25rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+        }
+        .auth-header-subtitle { font-size: 0.75rem; color: rgba(255, 255, 255, 0.9); font-weight: 500; }
+        .auth-card-body { padding: 0 1.75rem 1.75rem; position: relative; z-index: 3; margin-top: -1.25rem; }
+        @media (max-width: 640px) { .auth-card-body { padding: 0 1.25rem 1.25rem; } }
+        .auth-title { font-size: 1.35rem; font-weight: 900; text-align: center; color: #1e293b; margin-bottom: 0.35rem; }
+        .auth-subtitle { font-size: 0.8rem; color: #64748b; text-align: center; margin-bottom: 1.25rem; line-height: 1.5; }
+        .feature-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 1.25rem; }
+        .feature-chip {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 5px 11px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(124, 58, 237, 0.06));
+            border: 1px solid rgba(79, 70, 229, 0.18); border-radius: 999px;
+            font-size: 0.62rem; font-weight: 800; color: #4f46e5;
+            letter-spacing: 0.05em; text-transform: uppercase;
+        }
+        .feature-chip i { font-size: 0.7rem; }
+        .auth-input-group { margin-bottom: 1rem; }
+        .auth-input-label {
+            display: block; font-size: 0.68rem; font-weight: 800; color: #475569;
+            margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .auth-input-wrapper { position: relative; }
+        .auth-input-icon {
+            position: absolute; left: 0; top: 0; bottom: 0; width: 46px;
+            display: flex; align-items: center; justify-content: center;
+            color: #94a3b8; font-size: 0.95rem; pointer-events: none;
+            transition: color 0.3s ease; z-index: 2;
+        }
+        .auth-input-wrapper:focus-within .auth-input-icon { color: #4f46e5; }
+        .auth-input {
+            width: 100%; padding: 0.95rem 1rem 0.95rem 2.85rem;
+            font-size: 0.92rem; font-family: inherit;
+            border: 2px solid rgba(226, 232, 240, 0.9); border-radius: 14px;
+            background: rgba(248, 250, 252, 0.7); color: #1e293b;
+            transition: all 0.3s ease; outline: none; font-weight: 500;
+        }
+        .auth-input::placeholder { color: #94a3b8; font-weight: 400; }
+        .auth-input:focus {
+            border-color: #4f46e5; background: white;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+        }
+        .auth-hint {
+            font-size: 0.68rem; color: #94a3b8; margin-top: 0.4rem;
+            display: flex; align-items: center; gap: 5px; padding-left: 4px;
+        }
+        .auth-hint i { font-size: 0.7rem; }
+        .auth-btn {
+            width: 100%; padding: 1rem 1.5rem; border: none;
+            border-radius: 14px; font-weight: 800; font-size: 0.92rem;
+            color: white;
+            background: linear-gradient(135deg, #4f46e5, #6366f1, #7c3aed);
+            background-size: 200% 200%;
+            box-shadow: 0 12px 28px -8px rgba(79, 70, 229, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 8px; position: relative; overflow: hidden;
+            font-family: inherit; letter-spacing: 0.03em;
+            animation: gradientShift 5s ease infinite; margin-top: 0.25rem;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .auth-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+            transition: left 0.6s;
+        }
+        .auth-btn:hover::before { left: 100%; }
+        .auth-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 40px -8px rgba(79, 70, 229, 0.7); }
+        .auth-actions {
+            display: flex; flex-direction: column; gap: 10px;
+            margin-top: 1.25rem; padding-top: 1.25rem;
+            border-top: 1px dashed rgba(203, 213, 225, 0.7);
+        }
+        .auth-link-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 0.85rem 1rem;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1.5px solid rgba(226, 232, 240, 0.9); border-radius: 12px;
+            font-size: 0.83rem; font-weight: 700; color: #475569;
+            cursor: pointer; transition: all 0.3s ease;
+            font-family: inherit; width: 100%;
+        }
+        .auth-link-btn:hover {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.06), rgba(124, 58, 237, 0.04));
+            border-color: rgba(79, 70, 229, 0.3); color: #4f46e5;
+            transform: translateY(-2px); box-shadow: 0 8px 20px -8px rgba(79, 70, 229, 0.3);
+        }
+        .auth-link-btn.primary-link {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(124, 58, 237, 0.06));
+            border-color: rgba(79, 70, 229, 0.22); color: #4f46e5;
+        }
+        .auth-link-btn i { font-size: 0.9rem; }
+        .welcome-box {
+            display: flex; align-items: center; gap: 12px; padding: 1rem;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(16, 185, 129, 0.06));
+            border: 1px dashed rgba(79, 70, 229, 0.25); border-radius: 14px;
+            margin-bottom: 1.25rem; position: relative; overflow: hidden;
+        }
+        .welcome-icon {
+            width: 46px; height: 46px; border-radius: 14px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; flex-shrink: 0;
+            box-shadow: 0 10px 24px -8px rgba(79, 70, 229, 0.55);
+            animation: welcomePulse 3s ease-in-out infinite;
+        }
+        @keyframes welcomePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+        .welcome-text { flex: 1; min-width: 0; }
+        .welcome-text-title { font-size: 0.82rem; font-weight: 900; color: #1e293b; margin-bottom: 2px; }
+        .welcome-text-sub { font-size: 0.7rem; color: #64748b; line-height: 1.45; }
+        .setup-info-box {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 0.9rem 1rem;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(251, 191, 36, 0.05));
+            border-left: 3px solid #f59e0b; border-radius: 12px; margin-top: 1rem;
+        }
+        .setup-info-box i { color: #f59e0b; font-size: 1rem; margin-top: 2px; flex-shrink: 0; }
+        .setup-info-box p { font-size: 0.72rem; color: #78350f; line-height: 1.55; margin: 0; }
+        .setup-info-box strong { color: #d97706; font-weight: 800; }
+
+        /* ============================================================
+           ============ VOTER IDENTITY BADGE ============
+           ============================================================ */
+        .voter-identity-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 8px 24px -8px rgba(31, 38, 135, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            animation: voterBadgeEnter 0.5s ease-out;
+        }
+        @keyframes voterBadgeEnter {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .voter-identity-badge::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #10b981, #059669);
+        }
+        .voter-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            flex-shrink: 0;
+            box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.55);
+        }
+        .voter-info { flex: 1; min-width: 0; }
+        .voter-info-label {
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 2px;
+        }
+        .voter-info-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .voter-info-name > span:first-child {
+            font-size: 0.92rem;
+            font-weight: 900;
+            color: #1e293b;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .voter-class-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 9px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(124, 58, 237, 0.08));
+            border: 1px solid rgba(79, 70, 229, 0.22);
+            color: #4f46e5;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .voter-status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #10b981;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .voter-status-pulse {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #10b981;
+            animation: voterPulse 2s ease-in-out infinite;
+        }
+        @keyframes voterPulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            70% { transform: scale(2.2); opacity: 0; }
+            100% { transform: scale(1); opacity: 0; }
+        }
+        @media (max-width: 640px) {
+            .voter-identity-badge { padding: 0.6rem 0.85rem; gap: 10px; }
+            .voter-avatar { width: 38px; height: 38px; font-size: 0.95rem; border-radius: 10px; }
+            .voter-info-name > span:first-child { font-size: 0.85rem; }
+            .voter-class-pill { font-size: 0.62rem; padding: 2px 8px; }
+        }
+
+        /* ============================================================
+           ============ CANDIDATE CARDS ============
+           ============================================================ */
+        .candidate-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 640px) { .candidate-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .candidate-grid { grid-template-columns: repeat(3, 1fr); } }
+        .candidate-card {
+            position: relative; cursor: pointer;
+            border: 2px solid transparent; overflow: hidden; padding: 0;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            border-radius: 1.25rem; background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 20px -4px rgba(31, 38, 135, 0.15);
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            animation: cardEnter 0.5s ease-out backwards;
+        }
+        @keyframes cardEnter {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .candidate-card::before {
+            content: ''; position: absolute; top: 0; left: -120%;
+            width: 80%; height: 100%;
+            background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.5) 50%, transparent 70%);
+            transition: left 0.8s ease; pointer-events: none; z-index: 15;
+        }
+        .candidate-card:hover::before { left: 120%; }
+        .candidate-card:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(79, 70, 229, 0.35);
+            box-shadow: 0 24px 48px -12px rgba(79, 70, 229, 0.4);
+        }
+        .candidate-card.selected {
+            border-color: transparent;
+            background: linear-gradient(white, white) padding-box, linear-gradient(135deg, #10b981, #059669, #34d399) border-box;
+            box-shadow: 0 20px 40px -8px rgba(16, 185, 129, 0.35);
+            transform: translateY(-8px) scale(1.015);
+        }
+        .candidate-card-header {
+            position: relative; width: 100%; height: 110px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #7c3aed 100%);
+            overflow: visible;
+        }
+        .candidate-card-header::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.18) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.12) 0%, transparent 45%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M0 20h40v1H0zM20 0v40h1V0z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .candidate-card.selected .candidate-card-header { background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%); }
+        .candidate-number-badge {
+            position: absolute; top: 14px; right: 14px;
+            width: 46px; height: 46px; border-radius: 14px;
+            background: rgba(255, 255, 255, 0.95); color: #4f46e5;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1.25rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+            z-index: 5; border: 2px solid rgba(255, 255, 255, 0.95);
+            transition: all 0.3s ease;
+        }
+        .candidate-card.selected .candidate-number-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706); color: white;
+            border-color: #fbbf24; transform: scale(1.08) rotate(-3deg);
+        }
+        .candidate-position-label {
+            position: absolute; top: 14px; left: 14px;
+            padding: 5px 12px; background: rgba(255, 255, 255, 0.2);
+            color: white; font-size: 0.65rem; font-weight: 700;
+            border-radius: 999px; text-transform: uppercase; letter-spacing: 0.06em;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.35); z-index: 5;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .candidate-checkmark {
+            position: absolute; bottom: -22px; right: 20px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
+            border: 3px solid white; z-index: 6;
+            opacity: 0; transform: scale(0) rotate(-180deg);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .candidate-card.selected .candidate-checkmark { opacity: 1; transform: scale(1) rotate(0deg); }
+        .candidate-photo-wrapper {
+            position: relative; width: 130px; height: 130px;
+            margin: -65px auto 1rem; z-index: 4;
+        }
+        .candidate-photo-ring {
+            position: absolute; inset: -6px; border-radius: 50%;
+            background: conic-gradient(from 0deg, #4f46e5, #7c3aed, #ec4899, #f59e0b, #10b981, #4f46e5);
+            animation: spin-slow 6s linear infinite; z-index: 0;
+        }
+        @keyframes spin-slow { to { transform: rotate(360deg); } }
+        .candidate-card.selected .candidate-photo-ring {
+            background: conic-gradient(from 0deg, #10b981, #34d399, #10b981);
+            animation-duration: 3s;
+        }
+        .candidate-photo-wrapper::before {
+            content: ''; position: absolute; inset: -2px;
+            border-radius: 50%; background: white; z-index: 1;
+        }
+        .candidate-photo {
+            position: relative; width: 130px; height: 130px;
+            object-fit: cover; border-radius: 50%; z-index: 2;
+            border: 4px solid white; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease; background: #e2e8f0;
+        }
+        .candidate-card:hover .candidate-photo { transform: scale(1.05); }
+        .candidate-card-body {
+            width: 100%; padding: 0 1.25rem 1.5rem;
+            display: flex; flex-direction: column; align-items: center; flex: 1;
+        }
+        .candidate-name {
+            font-size: 1.15rem; font-weight: 800; color: #1e293b;
+            margin-bottom: 0.35rem; line-height: 1.3;
+        }
+        .candidate-card.selected .candidate-name { color: #047857; }
+        .candidate-divider {
+            width: 70px; height: 3px;
+            background: linear-gradient(90deg, transparent, #4f46e5, #ec4899, #4f46e5, transparent);
+            border-radius: 3px; margin: 0.5rem 0 1rem;
+            opacity: 0.7; transition: all 0.4s ease;
+        }
+        .candidate-card:hover .candidate-divider { width: 120px; opacity: 1; }
+        .candidate-card.selected .candidate-divider {
+            width: 120px;
+            background: linear-gradient(90deg, transparent, #10b981, #34d399, #10b981, transparent);
+            opacity: 1;
+        }
+        .candidate-info-section { width: 100%; text-align: left; margin-bottom: 0.75rem; }
+        .candidate-info-section:last-child { margin-bottom: 0; }
+        .candidate-info-header {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            margin-bottom: 0.4rem; padding: 4px 8px;
+            border-radius: 8px; width: fit-content;
+        }
+        .candidate-info-header.visi {
+            color: #4f46e5;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.08));
+            border: 1px solid rgba(79, 70, 229, 0.15);
+        }
+        .candidate-info-header.misi {
+            color: #d97706;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(217, 119, 6, 0.08));
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+        .candidate-info-text {
+            font-size: 0.8rem; color: #475569; line-height: 1.5;
+            padding-left: 4px;
+            display: -webkit-box; -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .candidate-footer {
+            width: 100%; margin-top: 1rem; padding-top: 0.75rem;
+            border-top: 1px dashed rgba(203, 213, 225, 0.6);
+            display: flex; align-items: center; justify-content: center;
+            gap: 6px; font-size: 0.75rem; font-weight: 600;
+            color: #94a3b8; transition: all 0.3s ease;
+        }
+        .candidate-card:hover .candidate-footer { color: #4f46e5; }
+        .candidate-card.selected .candidate-footer {
+            color: #10b981; border-top-color: rgba(16, 185, 129, 0.4);
+        }
+        @media (max-width: 640px) {
+            .candidate-photo-wrapper { width: 110px; height: 110px; margin-top: -55px; }
+            .candidate-photo { width: 110px; height: 110px; }
+            .candidate-card-header { height: 90px; }
+            .candidate-name { font-size: 1.05rem; }
+            .candidate-info-text { font-size: 0.75rem; }
+            .candidate-number-badge { width: 40px; height: 40px; font-size: 1.1rem; }
+        }
+
+        /* ============================================================
+           ============ RESULTS PAGE ============
+           ============================================================ */
+        .results-hero {
+            position: relative; border-radius: 1.5rem;
+            padding: 2rem 1.5rem; text-align: center;
+            margin-bottom: 1.5rem; overflow: hidden;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+            box-shadow: 0 20px 50px -12px rgba(79, 70, 229, 0.5); color: white;
+        }
+        .results-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255,255,255,0.2) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.3) 0%, transparent 45%);
+            pointer-events: none;
+        }
+        .results-hero > * { position: relative; z-index: 1; }
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 14px; background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 999px; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.08em; backdrop-filter: blur(8px); margin-bottom: 1rem;
+        }
+        .live-dot {
+            width: 8px; height: 8px; background: #10b981; border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: livePulse 1.5s infinite;
+        }
+        @keyframes livePulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .results-hero-title {
+            font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 900;
+            letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.5rem;
+        }
+        .results-hero-subtitle { font-size: 0.9rem; opacity: 0.9; margin-bottom: 1.5rem; }
+        .countdown-wrapper {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 10px 20px; background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 999px; backdrop-filter: blur(10px);
+        }
+        .countdown-icon {
+            width: 32px; height: 32px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            animation: spin-slow 4s linear infinite;
+        }
+        .countdown-text { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+        .countdown-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; font-weight: 600; }
+        .countdown-value { font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-bottom: 1.5rem; }
+        @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+        .stat-card {
+            position: relative; padding: 1.25rem 1rem; border-radius: 1rem;
+            text-align: center; background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 24px -8px rgba(31, 38, 135, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease; overflow: hidden;
+        }
+        .stat-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--stat-color, #4f46e5);
+        }
+        .stat-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px -8px rgba(31, 38, 135, 0.35); }
+        .stat-icon-bubble {
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 0.75rem; font-size: 1.1rem; color: white;
+            background: var(--stat-color, #4f46e5);
+            box-shadow: 0 6px 16px -4px var(--stat-color, #4f46e5);
+        }
+        .stat-value {
+            font-size: 1.75rem; font-weight: 900;
+            color: var(--stat-color, #4f46e5); line-height: 1;
+            margin-bottom: 0.35rem; font-variant-numeric: tabular-nums;
+        }
+        .stat-label {
+            font-size: 0.7rem; font-weight: 700; color: #64748b;
+            text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.3;
+        }
+        .stat-card.leader .stat-value {
+            font-size: 0.95rem; word-break: break-word; line-height: 1.3;
+            min-height: 2.6em; display: flex; align-items: center; justify-content: center;
+        }
+        .slideshow-card {
+            background: rgba(255, 255, 255, 0.95); border-radius: 1.5rem;
+            padding: 0.5rem; box-shadow: 0 20px 50px -12px rgba(31, 38, 135, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5); margin-bottom: 1.5rem;
+        }
+        .slideshow-container { position: relative; width: 100%; overflow: hidden; border-radius: 1.25rem; }
+        .slides { display: flex; transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1); }
+        .slide { min-width: 100%; padding: 1.5rem; box-sizing: border-box; }
+        @media (max-width: 640px) { .slide { padding: 1rem; } }
+        .slide-indicators { display: flex; justify-content: center; gap: 10px; padding: 1rem 0 0.5rem; }
+        .slide-indicator {
+            width: 10px; height: 10px; border-radius: 999px;
+            background: rgba(148, 163, 184, 0.4); cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            border: none; padding: 0;
+        }
+        .slide-indicator.active {
+            width: 32px; background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            box-shadow: 0 4px 12px -2px rgba(79, 70, 229, 0.5);
+        }
+        .slide-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 40px; height: 40px; background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(203, 213, 225, 0.6); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease; z-index: 20; color: #4f46e5; font-size: 0.9rem;
+        }
+        .slide-nav:hover {
+            background: #4f46e5; color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slide-nav.prev { left: 10px; }
+        .slide-nav.next { right: 10px; }
+        @media (max-width: 640px) {
+            .slide-nav { width: 34px; height: 34px; font-size: 0.8rem; }
+            .slide-nav.prev { left: 6px; }
+            .slide-nav.next { right: 6px; }
+        }
+        .slide-title {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; font-size: 1.1rem; font-weight: 800;
+            color: #1e293b; margin-bottom: 1.25rem; text-align: center;
+        }
+        .slide-title-icon {
+            width: 36px; height: 36px; border-radius: 12px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 0.95rem;
+            box-shadow: 0 6px 16px -4px rgba(79, 70, 229, 0.5); flex-shrink: 0;
+        }
+        .participation-highlight {
+            text-align: center; padding: 1.5rem 1rem; margin-bottom: 1rem;
+            border-radius: 1.25rem;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(124, 58, 237, 0.05));
+            border: 1px dashed rgba(79, 70, 229, 0.2);
+        }
+        .participation-percentage {
+            font-size: clamp(2.5rem, 8vw, 3.75rem); font-weight: 900; line-height: 1;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed, #ec4899);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 0.5rem;
+        }
+        .participation-label {
+            font-size: 0.8rem; font-weight: 600; color: #64748b;
+            text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .chart-container { position: relative; height: 240px; width: 100%; margin: 0 auto; }
+        @media (max-width: 768px) { .chart-container { height: 200px; } }
+        .participation-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-top: 1.25rem; }
+        .stat-box {
+            position: relative; text-align: center; padding: 1rem 0.75rem;
+            border-radius: 1rem; overflow: hidden;
+        }
+        .stat-box::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--box-color, #4f46e5);
+        }
+        .stat-box.voted {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.06));
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            --box-color: #4f46e5;
+        }
+        .stat-box.not-voted {
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.1), rgba(148, 163, 184, 0.06));
+            border: 1px solid rgba(100, 116, 139, 0.15);
+            --box-color: #64748b;
+        }
+        .stat-box-value { font-size: 1.65rem; font-weight: 900; line-height: 1; margin-bottom: 0.35rem; }
+        .stat-box.voted .stat-box-value { color: #4f46e5; }
+        .stat-box.not-voted .stat-box-value { color: #64748b; }
+        .stat-box-label {
+            font-size: 0.7rem; font-weight: 700; color: #64748b;
+            text-transform: uppercase; letter-spacing: 0.06em;
+        }
+        .candidate-result {
+            position: relative; display: flex; align-items: center;
+            padding: 1rem; margin-bottom: 0.75rem; border-radius: 1rem;
+            background: rgba(248, 250, 252, 0.9);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+            overflow: hidden; animation: resultEnter 0.6s ease-out backwards;
+        }
+        @keyframes resultEnter {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .candidate-result:hover {
+            transform: translateX(4px);
+            box-shadow: 0 12px 24px -8px rgba(31, 38, 135, 0.2);
+        }
+        .candidate-result.winner {
+            background: linear-gradient(135deg, rgba(254, 243, 199, 0.95), rgba(253, 230, 138, 0.85));
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 12px 32px -8px rgba(245, 158, 11, 0.4);
+        }
+        .candidate-result.winner::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 5px; background: linear-gradient(180deg, #fbbf24, #d97706);
+        }
+        .winner-crown {
+            position: absolute; top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: white; padding: 2px 12px; border-radius: 999px;
+            font-size: 0.6rem; font-weight: 800; letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.5);
+            display: flex; align-items: center; gap: 4px; white-space: nowrap;
+        }
+        .candidate-rank {
+            width: 42px; height: 42px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.95rem; margin-right: 0.85rem;
+            flex-shrink: 0; color: white;
+            box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.15);
+        }
+        .candidate-rank.rank-1 { background: linear-gradient(135deg, #fbbf24, #d97706); }
+        .candidate-rank.rank-2 { background: linear-gradient(135deg, #cbd5e1, #64748b); }
+        .candidate-rank.rank-3 { background: linear-gradient(135deg, #d97706, #92400e); }
+        .candidate-rank.rank-other { background: linear-gradient(135deg, #94a3b8, #475569); }
+        .candidate-photo-results {
+            width: 58px; height: 58px; object-fit: cover;
+            border-radius: 50%; margin-right: 0.85rem;
+            border: 3px solid white; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); background: #e2e8f0;
+        }
+        .candidate-result.winner .candidate-photo-results { border-color: #fbbf24; }
+        .candidate-details { flex: 1; min-width: 0; }
+        .candidate-name-result {
+            font-weight: 800; font-size: 1rem; color: #1e293b;
+            margin-bottom: 0.35rem; overflow: hidden;
+            text-overflow: ellipsis; white-space: nowrap;
+        }
+        .candidate-result.winner .candidate-name-result { color: #92400e; }
+        .candidate-stats {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.8rem; color: #64748b; margin-bottom: 0.4rem; gap: 8px;
+        }
+        .vote-count-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px; background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5; border-radius: 999px;
+            font-size: 0.7rem; font-weight: 700; white-space: nowrap;
+        }
+        .candidate-result.winner .vote-count-badge {
+            background: rgba(217, 119, 6, 0.15); color: #b45309;
+        }
+        .vote-percentage {
+            font-weight: 900; font-size: 1.05rem; color: #4f46e5;
+            font-variant-numeric: tabular-nums;
+        }
+        .candidate-result.winner .vote-percentage { color: #d97706; }
+        .vote-progress {
+            position: relative; height: 8px; background: rgba(226, 232, 240, 0.8);
+            border-radius: 999px; margin-top: 0.5rem; overflow: hidden;
+        }
+        .vote-progress-fill {
+            position: relative; height: 100%; border-radius: 999px;
+            background: linear-gradient(90deg, #4f46e5, #6366f1, #7c3aed);
+            transition: width 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+            overflow: hidden;
+        }
+        .vote-progress-fill::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .candidate-result.winner .vote-progress-fill {
+            background: linear-gradient(90deg, #fbbf24, #f59e0b, #d97706);
+        }
+
+        /* ============================================================
+           ============ THANK YOU PAGE (ULTRA COMPACT) ============
+           ============================================================ */
+        .thankyou-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+        .thankyou-card {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 25px 50px -15px rgba(31, 38, 135, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            animation: thankYouEnter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes thankYouEnter {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .thankyou-hero {
+            position: relative;
+            padding: 0.85rem 1rem 0.75rem;
+            text-align: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        }
+        .thankyou-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 20% 25%, rgba(255,255,255,0.28) 0%, transparent 45%),
+                radial-gradient(circle at 80% 75%, rgba(52, 211, 153, 0.4) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M0 20h40v1H0zM20 0v40h1V0z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .thankyou-hero > * { position: relative; z-index: 2; }
+        .ty-star {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.85);
+            z-index: 2;
+            animation: tyTwinkle 2.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes tyTwinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+        }
+        .trophy-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 58px;
+            height: 58px;
+            margin-bottom: 0.5rem;
+        }
+        .trophy-ring-outer {
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(255, 255, 255, 0.5);
+            animation: spin-slow 20s linear infinite;
+        }
+        .trophy-ring-inner {
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            animation: spin-reverse 15s linear infinite;
+        }
+        @keyframes spin-reverse {
+            to { transform: rotate(-360deg); }
+        }
+        .trophy-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+            animation: glowPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes glowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.12); opacity: 1; }
+        }
+        .trophy-circle {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.4), inset 0 -3px 8px rgba(16, 185, 129, 0.15);
+            z-index: 3;
+            animation: trophyFloat 3s ease-in-out infinite;
+        }
+        @keyframes trophyFloat {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-4px) rotate(2deg); }
+        }
+        .trophy-circle i {
+            font-size: 1.35rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.4));
+        }
+        .trophy-sparkle {
+            position: absolute;
+            color: #fbbf24;
+            z-index: 4;
+            animation: sparkleAnim 2s ease-in-out infinite;
+        }
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.15) rotate(45deg); }
+        }
+        .thankyou-title {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.15rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .thankyou-subtitle {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            line-height: 1.35;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+        .success-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 999px;
+            font-size: 0.55rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            margin-top: 0.5rem;
+        }
+        .success-badge-dot {
+            width: 5px;
+            height: 5px;
+            background: #fbbf24;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.7);
+            animation: livePulse 1.5s infinite;
+        }
+        .thankyou-body {
+            padding: 0.75rem 0.85rem 0.85rem;
+            position: relative;
+        }
+
+        /* Thank you voter badge */
+        .thankyou-voter-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.5rem 0.65rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(79, 70, 229, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .thankyou-voter-badge::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #10b981, #059669);
+        }
+        .thankyou-voter-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px -3px rgba(16, 185, 129, 0.55);
+        }
+        .thankyou-voter-info { flex: 1; min-width: 0; }
+        .thankyou-voter-label {
+            font-size: 0.5rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1px;
+        }
+        .thankyou-voter-name {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .thankyou-voter-name > span:first-child {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .thankyou-voter-class {
+            display: inline-flex;
+            align-items: center;
+            padding: 1px 7px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(124, 58, 237, 0.08));
+            border: 1px solid rgba(79, 70, 229, 0.22);
+            color: #4f46e5;
+            border-radius: 999px;
+            font-size: 0.55rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .selection-summary {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.06), rgba(16, 185, 129, 0.05));
+            border: 1px dashed rgba(79, 70, 229, 0.25);
+            border-radius: 0.85rem;
+            padding: 0.55rem 0.65rem;
+            margin-bottom: 0.6rem;
+        }
+        .selection-summary-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.58rem;
+            font-weight: 800;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px dashed rgba(203, 213, 225, 0.6);
+        }
+        .selection-summary-header i {
+            color: #4f46e5;
+            font-size: 0.7rem;
+        }
+        .selection-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.4rem 0.5rem;
+            background: rgba(255, 255, 255, 0.75);
+            border-radius: 8px;
+            margin-bottom: 0.35rem;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+        }
+        .selection-item:last-child { margin-bottom: 0; }
+        .selection-item-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        .selection-item-icon.ketua {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            box-shadow: 0 4px 10px -3px rgba(79, 70, 229, 0.5);
+        }
+        .selection-item-icon.wakil {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 10px -3px rgba(16, 185, 129, 0.5);
+        }
+        .selection-item-text { flex: 1; min-width: 0; }
+        .selection-item-label {
+            font-size: 0.52rem;
+            font-weight: 800;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1px;
+        }
+        .selection-item-name {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #1e293b;
+            letter-spacing: -0.01em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .selection-item-check {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.45rem;
+            flex-shrink: 0;
+        }
+        .thankyou-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            padding: 0.45rem 0.65rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(37, 99, 235, 0.04));
+            border-left: 2px solid #3b82f6;
+            border-radius: 8px;
+            margin-bottom: 0.6rem;
+        }
+        .thankyou-note i {
+            color: #3b82f6;
+            font-size: 0.7rem;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+        .thankyou-note p {
+            font-size: 0.6rem;
+            color: #1e40af;
+            line-height: 1.45;
+            margin: 0;
+        }
+        .thankyou-btn {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            color: white;
+            background: linear-gradient(135deg, #10b981, #059669, #047857);
+            background-size: 200% 200%;
+            box-shadow: 0 8px 18px -6px rgba(16, 185, 129, 0.55);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            letter-spacing: 0.03em;
+            animation: gradientShift 5s ease infinite;
+        }
+        .thankyou-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+        .thankyou-btn:hover::before { left: 100%; }
+        .thankyou-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -6px rgba(16, 185, 129, 0.7);
+        }
+        .thankyou-secondary-btn {
+            width: 100%;
+            padding: 0.55rem 1rem;
+            border: 1.5px solid rgba(226, 232, 240, 0.9);
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 0.72rem;
+            color: #475569;
+            background: rgba(248, 250, 252, 0.9);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: inherit;
+            margin-top: 0.4rem;
+        }
+        .thankyou-secondary-btn:hover {
+            border-color: rgba(79, 70, 229, 0.3);
+            color: #4f46e5;
+            background: rgba(79, 70, 229, 0.05);
+        }
+        .thankyou-secondary-btn i { font-size: 0.75rem; }
+
+        /* ============ SHARED ============ */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #6366f1);
+            color: white; font-weight: 600; border: none; border-radius: 12px;
+            padding: 1rem 1.5rem; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(79, 70, 229, 0.4);
+            position: relative; overflow: hidden; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 100%; max-width: 320px; margin: 0 auto; font-size: 1rem;
+        }
+        .btn-primary::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px -4px rgba(79, 70, 229, 0.5); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9); color: #374151;
+            border: 1px solid rgba(229, 231, 235, 0.8);
+            font-weight: 600; border-radius: 12px; padding: 1rem 1.5rem;
+            transition: all 0.3s ease; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 100%; max-width: 320px; margin: 0 auto; font-size: 1rem;
+        }
+        .btn-secondary:hover { transform: translateY(-3px); box-shadow: 0 4px 15px -1px rgba(0, 0, 0, 0.1); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .loader {
+            border: 4px solid rgba(243, 243, 243, 0.8);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%; width: 50px; height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .notification {
+            position: fixed; bottom: 1rem; right: 1rem; left: 1rem;
+            padding: 1rem; border-radius: 0.75rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            z-index: 1000; transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            max-width: 400px; margin: 0 auto; backdrop-filter: blur(10px);
+        }
+        .notification.show { transform: translateX(0); }
+        .notification.hide { transform: translateX(120%); }
+        .notification.success { background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)); color: white; }
+        .notification.error { background: linear-gradient(135deg, rgba(239, 68, 68, 0.9), rgba(220, 38, 38, 0.9)); color: white; }
+        .notification.info { background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(37, 99, 235, 0.9)); color: white; }
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px);
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 100; display: flex; align-items: center; justify-content: center;
+            padding: 1rem; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95); border-radius: 1rem;
+            padding: 1.5rem; width: 100%; max-width: 400px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px); opacity: 0; transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0); opacity: 1; }
+        @media (max-width: 640px) { .modal-content { margin: 1rem; padding: 1.25rem; } }
+        .floating-shapes {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; overflow: hidden; pointer-events: none;
+        }
+        .shape {
+            position: absolute; opacity: 0.1;
+            animation: float-shape 20s infinite linear;
+            pointer-events: none; border-radius: 50%;
+        }
+        .shape-circle { background: linear-gradient(135deg, #4f46e5, #6366f1); }
+        .shape-triangle {
+            width: 0; height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 60px solid #10b981;
+            border-radius: 0;
+        }
+        .shape-square { background: linear-gradient(135deg, #f59e0b, #fbbf24); border-radius: 10px; }
+        @keyframes float-shape {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+        .touch-target { min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(241, 241, 241, 0.5); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #4f46e5, #6366f1); border-radius: 10px; }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        @keyframes confetti-pop-right {
+            0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(100vw) rotate(720deg); opacity: 0; }
+        }
+        @keyframes confetti-pop-left {
+            0% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(-100vw) rotate(720deg); opacity: 0; }
+        }
+        .interactive-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+        }
+        .bg-element {
+            position: absolute; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(5px);
+        }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .neon-text {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #4f46e5, 0 0 30px #4f46e5;
+        }
+        .confetti-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 9999; overflow: hidden;
+        }
+        .confetti {
+            position: absolute; width: 10px; height: 10px;
+            opacity: 0.9; animation: confetti-fall 5s linear forwards;
+        }
+        .confetti.ribbon { width: 6px; height: 14px; border-radius: 2px; }
+        .confetti.square { border-radius: 2px; }
+        .confetti.circle { border-radius: 50%; }
+        @media (max-width: 640px) {
+            .header-gradient { padding: 1rem 0.5rem; }
+            .btn-primary, .btn-secondary { padding: 0.875rem 1.25rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="animated-bg"></div>
+    <div class="interactive-bg" id="interactive-bg"></div>
+    <div id="particles-js"></div>
+
+    <div class="floating-shapes">
+        <div class="shape shape-circle floating" style="width: 80px; height: 80px; top: 10%; left: 5%; animation-duration: 25s;"></div>
+        <div class="shape shape-triangle floating" style="top: 20%; left: 80%; animation-duration: 30s;"></div>
+        <div class="shape shape-square floating" style="width: 60px; height: 60px; top: 70%; left: 10%; animation-duration: 35s;"></div>
+        <div class="shape shape-circle floating" style="width: 40px; height: 40px; top: 40%; left: 90%; animation-duration: 20s;"></div>
+        <div class="shape shape-square floating" style="width: 100px; height: 100px; top: 80%; left: 70%; animation-duration: 40s;"></div>
+    </div>
+
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <header class="header-gradient text-white py-4 shadow-lg relative glass-effect">
+        <div class="container">
+            <div class="flex flex-col items-center justify-center gap-4">
+                <div class="flex items-center justify-center gap-4">
+                    <div class="relative">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggEAfKcwL-4ggCQfvFLioSBlkHIbFVi7Uv5zdmnGxoE_cnTdwRLBtto00AlHHwb_Ulncs9FIN3nKbjEYu_KJmozWBCQhJXir4Q81hnXtE4vJT9eX1YTR-2eyW3X7eVjUkKfeMhHPskTExV/s1600/logo+sman+1+leuwimunding.gif" 
+                             alt="Logo SMA Negeri 1 Leuwimunding" 
+                             class="w-16 h-16 object-contain rounded-xl shadow-lg float pulse">
+                        <div class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shadow">
+                            <i class="fas fa-check text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h1 class="text-2xl font-bold mb-1 text-white neon-text">E-PEMILOS</h1>
+                        <p class="text-indigo-200 text-sm">SMA Negeri 1 Leuwimunding</p>
+                    </div>
+                </div>
+                <div class="w-full max-w-md">
+                    <div class="bg-white/20 rounded-full py-2 px-4 text-sm backdrop-blur-sm text-center glass-effect">
+                        <i class="fas fa-vote-yea mr-2"></i>
+                        Pemilihan Ketua & Wakil Ketua OSIS
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto py-4">
+        <!-- Setup Page -->
+        <div id="setup-page" class="page active">
+            <div class="auth-wrapper">
+                <div class="auth-card">
+                    <div class="auth-card-header">
+                        <i class="fas fa-star auth-decor-star" style="top: 20px; left: 25px; font-size: 0.85rem;"></i>
+                        <i class="fas fa-star auth-decor-star" style="top: 50px; right: 35px; font-size: 0.6rem; animation-delay: 0.5s;"></i>
+                        <i class="fas fa-star auth-decor-star" style="top: 100px; left: 50px; font-size: 0.5rem; animation-delay: 1s;"></i>
+                        
+                        <div class="auth-logo-badge">
+                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggEAfKcwL-4ggCQfvFLioSBlkHIbFVi7Uv5zdmnGxoE_cnTdwRLBtto00AlHHwb_Ulncs9FIN3nKbjEYu_KJmozWBCQhJXir4Q81hnXtE4vJT9eX1YTR-2eyW3X7eVjUkKfeMhHPskTExV/s1600/logo+sman+1+leuwimunding.gif" alt="Logo">
+                            <div class="auth-logo-shield"><i class="fas fa-check"></i></div>
+                        </div>
+                        <h2 class="auth-header-title">E-PEMILOS</h2>
+                        <p class="auth-header-subtitle">SMA Negeri 1 Leuwimunding</p>
+                    </div>
+                    
+                    <div class="auth-card-body">
+                        <h3 class="auth-title">Pengaturan Awal</h3>
+                        <p class="auth-subtitle">Hubungkan sistem dengan Database</p>
+                        
+                        <div class="feature-chips">
+                            <span class="feature-chip"><i class="fas fa-shield-alt"></i> Aman</span>
+                            <span class="feature-chip"><i class="fas fa-bolt"></i> Cepat</span>
+                            <span class="feature-chip"><i class="fas fa-chart-pie"></i> Real-time</span>
+                        </div>
+                        
+                        <form id="setup-form">
+                            <div class="auth-input-group">
+                                <label for="script-url-input" class="auth-input-label">Database URL</label>
+                                <div class="auth-input-wrapper">
+                                    <div class="auth-input-icon"><i class="fas fa-link"></i></div>
+                                    <input type="url" id="script-url-input" class="auth-input" placeholder="https://script.google.com/macros/s/..." required>
+                                </div>
+                                <p class="auth-hint"><i class="fas fa-info-circle"></i> Tempel Database URL Anda di sini</p>
+                            </div>
+                            <button type="submit" class="auth-btn">
+                                <i class="fas fa-rocket"></i>
+                                Simpan & Lanjutkan
+                            </button>
+                        </form>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login-page" class="page">
+            <div class="auth-wrapper">
+                <div class="auth-card">
+                    <div class="auth-card-header auth-header-compact">
+                        <i class="fas fa-star auth-decor-star" style="top: 20px; left: 25px; font-size: 0.85rem;"></i>
+                        <i class="fas fa-star auth-decor-star" style="top: 50px; right: 35px; font-size: 0.6rem; animation-delay: 0.5s;"></i>
+                        
+                        <div class="auth-logo-badge">
+                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggEAfKcwL-4ggCQfvFLioSBlkHIbFVi7Uv5zdmnGxoE_cnTdwRLBtto00AlHHwb_Ulncs9FIN3nKbjEYu_KJmozWBCQhJXir4Q81hnXtE4vJT9eX1YTR-2eyW3X7eVjUkKfeMhHPskTExV/s1600/logo+sman+1+leuwimunding.gif" alt="Logo">
+                            <div class="auth-logo-shield"><i class="fas fa-vote-yea"></i></div>
+                        </div>
+                        <h2 class="auth-header-title">Selamat Datang!</h2>
+                        
+                    </div>
+                    
+                    <div class="auth-card-body">
+                        <div class="welcome-box">
+                            <div class="welcome-icon"><i class="fas fa-vote-yea"></i></div>
+                            <div class="welcome-text">
+                                <div class="welcome-text-title">Pemilihan Ketua & Wakil OSIS</div>
+                                <div class="welcome-text-sub">Masukkan NIS Anda untuk memulai pemilihan</div>
+                            </div>
+                        </div>
+                        
+                        <form id="login-form">
+                            <div class="auth-input-group">
+                                <label for="nis" class="auth-input-label">Nomor Induk Siswa</label>
+                                <div class="auth-input-wrapper">
+                                    <div class="auth-input-icon"><i class="fas fa-id-card"></i></div>
+                                    <input type="text" id="nis" name="nis" class="auth-input" placeholder="Contoh: 12345" required autocomplete="off" inputmode="numeric">
+                                </div>
+                                <p class="auth-hint"><i class="fas fa-shield-alt"></i> NIS hanya bisa digunakan sekali untuk memilih</p>
+                            </div>
+                            <button type="submit" class="auth-btn">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Masuk & Mulai Memilih
+                            </button>
+                        </form>
+                        
+                        <div class="auth-actions">
+                            <button id="show-results-btn" class="auth-link-btn primary-link">
+                                <i class="fas fa-chart-bar"></i>
+                                Lihat Hasil Real-time
+                            </button>
+                            <button id="change-url-btn" class="auth-link-btn">
+                                <i class="fas fa-cog"></i>
+                                Ganti URL Web App
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vote Ketua Page -->
+        <div id="vote-ketua-page" class="page">
+            <!-- Voter Identity Badge -->
+            <div class="voter-identity-badge">
+                <div class="voter-avatar">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="voter-info">
+                    <div class="voter-info-label">Pemilih</div>
+                    <div class="voter-info-name">
+                        <span id="voter-name">—</span>
+                        <span class="voter-class-pill">Kelas <span id="voter-class">—</span></span>
+                    </div>
+                </div>
+                <div class="voter-status-dot">
+                    <span class="voter-status-pulse"></span>
+                </div>
+            </div>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-extrabold text-white">Pemilihan Ketua OSIS</h2>
+                <p class="text-slate-100 mt-1 text-xs drop-shadow-md">Pilih salah satu kandidat dengan mengetuk kartu</p>
+            </div>
+            <div id="candidate-list-ketua" class="candidate-grid"></div>
+            <div class="text-center mt-8">
+                <button id="next-to-wakil-btn" class="btn-primary touch-target" disabled>
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    Lanjut ke Pemilihan Wakil Ketua
+                </button>
+            </div>
+        </div>
+
+        <!-- Vote Wakil Page -->
+        <div id="vote-wakil-page" class="page">
+            <!-- Voter Identity Badge -->
+            <div class="voter-identity-badge">
+                <div class="voter-avatar">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="voter-info">
+                    <div class="voter-info-label">Pemilih</div>
+                    <div class="voter-info-name">
+                        <span id="voter-name-wakil">—</span>
+                        <span class="voter-class-pill">Kelas <span id="voter-class-wakil">—</span></span>
+                    </div>
+                </div>
+                <div class="voter-status-dot">
+                    <span class="voter-status-pulse"></span>
+                </div>
+            </div>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-extrabold text-white" >Pemilihan Wakil Ketua OSIS</h2>
+                <p class="text-slate-100 mt-2 text-sm drop-shadow-md">Anda memilih <span id="selected-ketua-name" class="font-bold text-white"></span> sebagai Ketua</p>
+            </div>
+            <div id="candidate-list-wakil" class="candidate-grid"></div>
+            <div class="text-center mt-8 flex flex-col gap-4">
+                <button id="back-to-ketua-btn" class="btn-secondary touch-target">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Kembali ke Ketua
+                </button>
+                <button id="submit-all-votes-btn" class="btn-primary touch-target" disabled>
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Konfirmasi Semua Pilihan
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Page -->
+        <div id="results-page" class="page">
+            <div class="results-hero">
+                <h2 class="results-hero-title">Hasil Perhitungan Suara Sementara</h2>
+                <p class="results-hero-subtitle">Pemilihan Ketua & Wakil Ketua OSIS</p>
+                <div class="countdown-wrapper">
+                    <div class="countdown-icon"><i class="fas fa-sync-alt text-white text-xs"></i></div>
+                    <div class="countdown-text">
+                        <span class="countdown-label">Refresh Otomatis</span>
+                        <span class="countdown-value" id="refresh-countdown">10:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card" style="--stat-color: #4f46e5;">
+                    <div class="stat-icon-bubble"><i class="fas fa-check-to-slot"></i></div>
+                    <div class="stat-value" id="total-votes">0</div>
+                    <div class="stat-label">Total Suara</div>
+                </div>
+                <div class="stat-card" style="--stat-color: #10b981;">
+                    <div class="stat-icon-bubble"><i class="fas fa-users"></i></div>
+                    <div class="stat-value" id="participation-rate">0%</div>
+                    <div class="stat-label">Partisipasi</div>
+                </div>
+                <div class="stat-card leader" style="--stat-color: #f59e0b;">
+                    <div class="stat-icon-bubble"><i class="fas fa-crown"></i></div>
+                    <div class="stat-value" id="leading-ketua">-</div>
+                    <div class="stat-label">Hasil Sementara Ketua Osis</div>
+                </div>
+                <div class="stat-card leader" style="--stat-color: #ec4899;">
+                    <div class="stat-icon-bubble"><i class="fas fa-medal"></i></div>
+                    <div class="stat-value" id="leading-wakil">-</div>
+                    <div class="stat-label">Hasil Sementara Wakil Ketua Osis</div>
+                </div>
+            </div>
+
+            <div class="slideshow-card">
+                <div class="slideshow-container">
+                    <div class="slides" id="results-slides">
+                        <div class="slide">
+                            <div class="slide-title">
+                                <div class="slide-title-icon"><i class="fas fa-users"></i></div>
+                                <span>Partisipasi Pemilihan</span>
+                            </div>
+                            <div class="participation-highlight">
+                                <div class="participation-percentage" id="slideshow-participation-percentage">0%</div>
+                                <div class="participation-label">Tingkat Partisipasi</div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="slideshow-participation-chart"></canvas>
+                            </div>
+                            <div class="participation-stats">
+                                <div class="stat-box voted">
+                                    <div class="stat-box-value" id="slideshow-voted-count">0</div>
+                                    <div class="stat-box-label">Sudah Memilih</div>
+                                </div>
+                                <div class="stat-box not-voted">
+                                    <div class="stat-box-value" id="slideshow-not-voted-count">0</div>
+                                    <div class="stat-box-label">Belum Memilih</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slide">
+                            <div class="slide-title">
+                                <div class="slide-title-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <span>Hasil Ketua OSIS</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3 px-1">
+                                <h4 class="font-bold text-slate-800 text-sm">Perolehan Suara</h4>
+                                <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full" id="slideshow-total-ketua-votes">0 suara</span>
+                            </div>
+                            <div class="chart-container mb-4">
+                                <canvas id="slideshow-ketua-pie-chart"></canvas>
+                            </div>
+                            <div id="slideshow-ketua-candidates-list"></div>
+                        </div>
+                        
+                        <div class="slide">
+                            <div class="slide-title">
+                                <div class="slide-title-icon" style="background: linear-gradient(135deg, #ec4899, #be185d);">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <span>Hasil Wakil Ketua OSIS</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-3 px-1">
+                                <h4 class="font-bold text-slate-800 text-sm">Perolehan Suara</h4>
+                                <span class="text-xs font-bold text-pink-600 bg-pink-50 px-3 py-1 rounded-full" id="slideshow-total-wakil-votes">0 suara</span>
+                            </div>
+                            <div class="chart-container mb-4">
+                                <canvas id="slideshow-wakil-pie-chart"></canvas>
+                            </div>
+                            <div id="slideshow-wakil-candidates-list"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="slide-nav prev" id="slide-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slide-nav next" id="slide-next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                
+                <div class="slide-indicators" id="slide-indicators">
+                    <button class="slide-indicator active" data-slide="0" aria-label="Slide 1"></button>
+                    <button class="slide-indicator" data-slide="1" aria-label="Slide 2"></button>
+                    <button class="slide-indicator" data-slide="2" aria-label="Slide 3"></button>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button id="back-to-vote-btn" class="btn-secondary touch-target">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Kembali ke Pemilihan
+                </button>
+            </div>
+        </div>
+
+        <!-- Thank You Page (Ultra Compact) -->
+        <div id="thank-you-page" class="page">
+            <div class="thankyou-wrapper">
+                <div class="thankyou-card">
+                    <div class="thankyou-hero">
+                        <i class="fas fa-star ty-star" style="top: 8px; left: 15px; font-size: 0.55rem;"></i>
+                        <i class="fas fa-star ty-star" style="top: 15px; right: 20px; font-size: 0.45rem; animation-delay: 0.4s;"></i>
+                        <i class="fas fa-star ty-star" style="bottom: 20px; right: 15px; font-size: 0.4rem; animation-delay: 0.9s;"></i>
+                        <i class="fas fa-star ty-star" style="bottom: 25px; left: 20px; font-size: 0.5rem; animation-delay: 1.3s;"></i>
+                        
+                        <div class="trophy-wrapper">
+                            <div class="trophy-ring-outer"></div>
+                            <div class="trophy-ring-inner"></div>
+                            <div class="trophy-glow"></div>
+                            <i class="fas fa-star trophy-sparkle" style="top: -2px; right: -2px; font-size: 0.4rem;"></i>
+                            <i class="fas fa-star trophy-sparkle" style="bottom: -2px; left: -2px; font-size: 0.35rem; animation-delay: 0.5s;"></i>
+                            <i class="fas fa-star trophy-sparkle" style="bottom: 5px; right: -6px; font-size: 0.3rem; animation-delay: 1s;"></i>
+                            <div class="trophy-circle">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                        
+                        <h2 class="thankyou-title">Terima Kasih! 🎉</h2>
+                        <p class="thankyou-subtitle">Suara Anda telah berhasil direkam</p>
+                        
+                        <div class="success-badge">
+                            <span class="success-badge-dot"></span>
+                            <i class="fas fa-check-circle"></i>
+                            Suara Terekam
+                        </div>
+                    </div>
+                    
+                    <div class="thankyou-body">
+                        <!-- Voter Identity -->
+                        <div class="thankyou-voter-badge">
+                            <div class="thankyou-voter-avatar">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="thankyou-voter-info">
+                                <div class="thankyou-voter-label">Pemilih</div>
+                                <div class="thankyou-voter-name">
+                                    <span id="thankyou-voter-name">—</span>
+                                    <span class="thankyou-voter-class">Kelas <span id="thankyou-voter-class">—</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="selection-summary">
+                            <div class="selection-summary-header">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span>Ringkasan Pilihan</span>
+                            </div>
+                            <div class="selection-item">
+                                <div class="selection-item-icon ketua">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div class="selection-item-text">
+                                    <div class="selection-item-label">Ketua OSIS</div>
+                                    <div class="selection-item-name" id="thankyou-ketua-name">—</div>
+                                </div>
+                                <div class="selection-item-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            <div class="selection-item">
+                                <div class="selection-item-icon wakil">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <div class="selection-item-text">
+                                    <div class="selection-item-label">Wakil Ketua</div>
+                                    <div class="selection-item-name" id="thankyou-wakil-name">—</div>
+                                </div>
+                                <div class="selection-item-check">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="thankyou-note">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Pilihan bersifat <strong>final</strong> & tidak dapat diubah.</p>
+                        </div>
+                        
+                        <button id="logout-btn" class="thankyou-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Selesai & Keluar
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="loader" class="fixed inset-0 bg-white/90 backdrop-blur-lg flex flex-col justify-center items-center z-50 hidden">
+        <div class="loader mb-4"></div>
+        <p class="text-slate-600 font-medium text-sm">Memproses...</p>
+    </div>
+
+    <div id="notification" class="notification hidden glass-effect">
+        <div class="flex items-start">
+            <i id="notification-icon" class="fas fa-info-circle mr-3 mt-1"></i>
+            <p id="notification-text" class="flex-1 text-sm"></p>
+            <button id="notification-close" class="ml-2 text-white/80 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="confirmation-modal" class="modal-overlay">
+        <div class="modal-content glass-effect">
+            <div class="text-center mb-4">
+                <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-yellow-100 flex items-center justify-center">
+                    <i class="fas fa-exclamation-circle text-lg text-yellow-500"></i>
+                </div>
+                <h3 class="font-bold text-slate-800 text-lg">Konfirmasi Pilihan Anda</h3>
+            </div>
+            <div id="modal-selections" class="mb-4"></div>
+            <div class="flex flex-col gap-3">
+                <button id="cancel-vote-btn" class="btn-secondary touch-target">
+                    <i class="fas fa-times mr-2"></i>
+                    Batal
+                </button>
+                <button id="confirm-vote-btn" class="btn-primary touch-target" style="background: linear-gradient(135deg, #10b981, #059669);">
+                    <i class="fas fa-check mr-2"></i>
+                    Yakin & Pilih
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // ============================================================
+        // ===== KONFIGURASI =====
+        // ============================================================
+        const APP_SETTINGS = {
+            REFRESH_MINUTES: 10,
+            SLIDESHOW_SECONDS: 5,
+            NOTIFICATION_SECONDS: 5
+        };
+
+        const CONFIG = {
+            PALETTE: ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#3b82f6'],
+            PALETTE_DONUT: [
+                { bg: 'rgba(79, 70, 229, 0.9)', border: '#4f46e5' },
+                { bg: 'rgba(16, 185, 129, 0.9)', border: '#10b981' },
+                { bg: 'rgba(245, 158, 11, 0.9)', border: '#f59e0b' },
+                { bg: 'rgba(239, 68, 68, 0.9)', border: '#ef4444' },
+                { bg: 'rgba(139, 92, 246, 0.9)', border: '#8b5cf6' },
+                { bg: 'rgba(59, 130, 246, 0.9)', border: '#3b82f6' }
+            ],
+            REFRESH_INTERVAL: APP_SETTINGS.REFRESH_MINUTES * 60 * 1000,
+            REFRESH_SECONDS: APP_SETTINGS.REFRESH_MINUTES * 60,
+            SLIDESHOW_INTERVAL: APP_SETTINGS.SLIDESHOW_SECONDS * 1000,
+            NOTIFICATION_DURATION: APP_SETTINGS.NOTIFICATION_SECONDS * 1000,
+            DEFAULT_SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbwaozuGTnizb7pEPFxMzMnsCYryd7jUeIO5nMj7i2CXvkuUiukdyTEWhXed2jzZKivX6Q/exec'
+        };
+
+        const formatCountdown = {
+            toMMSS(totalSeconds) {
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        };
+
+        class AppState {
+            constructor() {
+                this.voter = null;
+                this.candidates = { ketua: [], wakil: [] };
+                this.selections = { ketua: null, wakil: null };
+                this.scriptUrl = localStorage.getItem('pemilosWebAppUrl') || CONFIG.DEFAULT_SCRIPT_URL;
+                this.resultsInterval = null;
+                this.refreshTimerInterval = null;
+                this.refreshTimerSeconds = CONFIG.REFRESH_SECONDS;
+                this.charts = { participation: null, ketua: null, wakil: null };
+                this.notificationTimeout = null;
+                this.currentSlide = 0;
+                this.slideInterval = null;
+            }
+            resetVote() { this.selections = { ketua: null, wakil: null }; }
+            resetAll() {
+                this.voter = null;
+                this.candidates = { ketua: [], wakil: [] };
+                this.selections = { ketua: null, wakil: null };
+            }
+            setScriptUrl(url) {
+                this.scriptUrl = url;
+                localStorage.setItem('pemilosWebAppUrl', url);
+            }
+        }
+
+        const appState = new AppState();
+
+        const elements = {
+            pages: {
+                setup: document.getElementById('setup-page'),
+                login: document.getElementById('login-page'),
+                voteKetua: document.getElementById('vote-ketua-page'),
+                voteWakil: document.getElementById('vote-wakil-page'),
+                results: document.getElementById('results-page'),
+                thankYou: document.getElementById('thank-you-page')
+            },
+            loader: document.getElementById('loader'),
+            notification: document.getElementById('notification'),
+            notificationIcon: document.getElementById('notification-icon'),
+            notificationText: document.getElementById('notification-text'),
+            notificationClose: document.getElementById('notification-close'),
+            setupForm: document.getElementById('setup-form'),
+            scriptUrlInput: document.getElementById('script-url-input'),
+            loginForm: document.getElementById('login-form'),
+            nisInput: document.getElementById('nis'),
+            voterNameSpan: document.getElementById('voter-name'),
+            voterClassSpan: document.getElementById('voter-class'),
+            voterNameWakilSpan: document.getElementById('voter-name-wakil'),
+            voterClassWakilSpan: document.getElementById('voter-class-wakil'),
+            candidateListKetuaDiv: document.getElementById('candidate-list-ketua'),
+            candidateListWakilDiv: document.getElementById('candidate-list-wakil'),
+            showResultsBtn: document.getElementById('show-results-btn'),
+            changeUrlBtn: document.getElementById('change-url-btn'),
+            backToVoteBtn: document.getElementById('back-to-vote-btn'),
+            logoutBtn: document.getElementById('logout-btn'),
+            nextToWakilBtn: document.getElementById('next-to-wakil-btn'),
+            backToKetuaBtn: document.getElementById('back-to-ketua-btn'),
+            submitAllVotesBtn: document.getElementById('submit-all-votes-btn'),
+            selectedKetuaNameSpan: document.getElementById('selected-ketua-name'),
+            confirmationModal: document.getElementById('confirmation-modal'),
+            modalSelections: document.getElementById('modal-selections'),
+            confirmVoteBtn: document.getElementById('confirm-vote-btn'),
+            cancelVoteBtn: document.getElementById('cancel-vote-btn'),
+            refreshCountdown: document.getElementById('refresh-countdown'),
+            totalVotes: document.getElementById('total-votes'),
+            participationRate: document.getElementById('participation-rate'),
+            leadingKetua: document.getElementById('leading-ketua'),
+            leadingWakil: document.getElementById('leading-wakil'),
+            resultsSlides: document.getElementById('results-slides'),
+            slidePrev: document.getElementById('slide-prev'),
+            slideNext: document.getElementById('slide-next'),
+            slideIndicators: document.getElementById('slide-indicators'),
+            slideshowParticipationPercentage: document.getElementById('slideshow-participation-percentage'),
+            slideshowVotedCount: document.getElementById('slideshow-voted-count'),
+            slideshowNotVotedCount: document.getElementById('slideshow-not-voted-count'),
+            slideshowTotalKetuaVotes: document.getElementById('slideshow-total-ketua-votes'),
+            slideshowTotalWakilVotes: document.getElementById('slideshow-total-wakil-votes'),
+            slideshowKetuaCandidatesList: document.getElementById('slideshow-ketua-candidates-list'),
+            slideshowWakilCandidatesList: document.getElementById('slideshow-wakil-candidates-list'),
+            slideshowParticipationChart: document.getElementById('slideshow-participation-chart'),
+            slideshowKetuaPieChart: document.getElementById('slideshow-ketua-pie-chart'),
+            slideshowWakilPieChart: document.getElementById('slideshow-wakil-pie-chart'),
+            confettiContainer: document.getElementById('confetti-container'),
+            thankyouKetuaName: document.getElementById('thankyou-ketua-name'),
+            thankyouWakilName: document.getElementById('thankyou-wakil-name'),
+            thankyouVoterName: document.getElementById('thankyou-voter-name'),
+            thankyouVoterClass: document.getElementById('thankyou-voter-class'),
+            thankyouViewResultsBtn: document.getElementById('thankyou-view-results-btn')
+        };
+
+        const utils = {
+            toggleLoader(show) { elements.loader.classList.toggle('hidden', !show); },
+
+            showNotification(message, type = 'info', duration = CONFIG.NOTIFICATION_DURATION) {
+                if (appState.notificationTimeout) clearTimeout(appState.notificationTimeout);
+                this.hideNotification();
+                elements.notificationText.textContent = message;
+                elements.notification.className = `notification ${type} hidden`;
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-triangle', info: 'fa-info-circle' };
+                elements.notificationIcon.className = `fas ${icons[type]} mr-3 mt-1`;
+                setTimeout(() => {
+                    elements.notification.classList.remove('hidden');
+                    elements.notification.classList.add('show');
+                }, 10);
+                appState.notificationTimeout = setTimeout(() => this.hideNotification(), duration);
+            },
+
+            hideNotification() {
+                elements.notification.classList.remove('show');
+                elements.notification.classList.add('hide');
+                setTimeout(() => {
+                    elements.notification.classList.add('hidden');
+                    elements.notification.classList.remove('hide');
+                }, 400);
+            },
+
+            showPage(pageKey) {
+                Object.values(elements.pages).forEach(page => page.classList.remove('active'));
+                const pageToShow = elements.pages[pageKey];
+                if (pageToShow) pageToShow.classList.add('active');
+                if (pageKey === 'thankYou') { this.populateThankYou(); this.startConfetti(); }
+                if (pageKey !== 'results') {
+                    resultsFlow.stopResultsRefresh();
+                    slideshowFlow.stopSlideshow();
+                } else {
+                    slideshowFlow.startSlideshow();
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            populateThankYou() {
+                const ketuaName = appState.selections.ketua?.name || '—';
+                const wakilName = appState.selections.wakil?.name || '—';
+                const voterName = appState.voter?.nama || '—';
+                const voterClass = appState.voter?.kelas || '—';
+                
+                if (elements.thankyouKetuaName) elements.thankyouKetuaName.textContent = ketuaName;
+                if (elements.thankyouWakilName) elements.thankyouWakilName.textContent = wakilName;
+                if (elements.thankyouVoterName) elements.thankyouVoterName.textContent = voterName;
+                if (elements.thankyouVoterClass) elements.thankyouVoterClass.textContent = voterClass;
+            },
+
+            updateVoterBadges() {
+                const voterName = appState.voter?.nama || '—';
+                const voterClass = appState.voter?.kelas || '—';
+                
+                if (elements.voterNameSpan) elements.voterNameSpan.textContent = voterName;
+                if (elements.voterClassSpan) elements.voterClassSpan.textContent = voterClass;
+                if (elements.voterNameWakilSpan) elements.voterNameWakilSpan.textContent = voterName;
+                if (elements.voterClassWakilSpan) elements.voterClassWakilSpan.textContent = voterClass;
+            },
+
+            startConfetti() {
+                const colors = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#fbbf24'];
+                const shapes = ['circle', 'square', 'ribbon'];
+                const container = elements.confettiContainer;
+                container.innerHTML = '';
+                for (let i = 0; i < 60; i++) {
+                    const confetti = document.createElement('div');
+                    const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                    confetti.className = `confetti ${shape}`;
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-20px';
+                    confetti.style.animation = `confetti-fall ${2.5 + Math.random() * 2.5}s ease-in-out forwards`;
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.zIndex = '9999';
+                    if (shape === 'circle') {
+                        confetti.style.width = (8 + Math.random() * 6) + 'px';
+                        confetti.style.height = confetti.style.width;
+                    } else if (shape === 'ribbon') {
+                        confetti.style.width = '6px';
+                        confetti.style.height = (12 + Math.random() * 8) + 'px';
+                    } else {
+                        confetti.style.width = (8 + Math.random() * 6) + 'px';
+                        confetti.style.height = confetti.style.width;
+                    }
+                    container.appendChild(confetti);
+                    setTimeout(() => { if (confetti.parentNode) confetti.parentNode.removeChild(confetti); }, 6000);
+                }
+                setTimeout(() => {
+                    for (let i = 0; i < 30; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti ' + shapes[Math.floor(Math.random() * shapes.length)];
+                        const fromLeft = Math.random() > 0.5;
+                        confetti.style.left = fromLeft ? '-20px' : 'calc(100vw + 20px)';
+                        confetti.style.top = (20 + Math.random() * 60) + 'vh';
+                        confetti.style.animation = `confetti-pop-${fromLeft ? 'right' : 'left'} ${2 + Math.random() * 2}s ease-out forwards`;
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.zIndex = '9999';
+                        confetti.style.width = '8px';
+                        confetti.style.height = '8px';
+                        container.appendChild(confetti);
+                        setTimeout(() => { if (confetti.parentNode) confetti.parentNode.removeChild(confetti); }, 5000);
+                    }
+                }, 500);
+            },
+
+            convertGoogleDriveUrl(url) {
+                if (!url) return 'https://placehold.co/150x150/E2E8F0/4A5568?text=Foto';
+                if (url.includes('drive.google.com/uc?')) return url;
+                if (url.includes('drive.google.com/file/d/')) {
+                    const fileId = url.match(/\/d\/([^\/]+)/)?.[1];
+                    if (fileId) return `https://drive.google.com/uc?export=view&id=${fileId}`;
+                }
+                return url;
+            },
+
+            escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            },
+
+            animateCountUp(element, endValue, isPercentage = false) {
+                if (!element) return;
+                const duration = 1200;
+                const startTime = performance.now();
+                function step(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const currentValue = eased * endValue;
+                    element.textContent = isPercentage ? `${currentValue.toFixed(1)}%` : Math.floor(currentValue);
+                    if (progress < 1) requestAnimationFrame(step);
+                    else element.textContent = isPercentage ? `${endValue.toFixed(1)}%` : endValue;
+                }
+                requestAnimationFrame(step);
+            },
+
+            showModal() { elements.confirmationModal.classList.add('active'); },
+            closeModal() { elements.confirmationModal.classList.remove('active'); },
+
+            createInteractiveBackground() {
+                const container = document.getElementById('interactive-bg');
+                for (let i = 0; i < 15; i++) {
+                    const element = document.createElement('div');
+                    element.classList.add('bg-element');
+                    const size = Math.random() * 150 + 50;
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    element.style.left = `${Math.random() * 100}%`;
+                    element.style.top = `${Math.random() * 100}%`;
+                    element.style.animation = `float ${15 + Math.random() * 15}s infinite ease-in-out`;
+                    element.style.animationDelay = `${Math.random() * 5}s`;
+                    container.appendChild(element);
+                }
+            },
+
+            initParticles() {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#ffffff" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out", bounce: false }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "repulse" },
+                            onclick: { enable: true, mode: "push" },
+                            resize: true
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+        };
+
+        const slideshowFlow = {
+            startSlideshow() {
+                this.stopSlideshow();
+                appState.slideInterval = setInterval(() => this.nextSlide(), CONFIG.SLIDESHOW_INTERVAL);
+            },
+            stopSlideshow() {
+                if (appState.slideInterval) { clearInterval(appState.slideInterval); appState.slideInterval = null; }
+            },
+            nextSlide() { appState.currentSlide = (appState.currentSlide + 1) % 3; this.updateSlideshow(); },
+            prevSlide() { appState.currentSlide = (appState.currentSlide - 1 + 3) % 3; this.updateSlideshow(); },
+            goToSlide(slideIndex) { appState.currentSlide = slideIndex; this.updateSlideshow(); },
+            updateSlideshow() {
+                elements.resultsSlides.style.transform = `translateX(-${appState.currentSlide * 100}%)`;
+                const indicators = elements.slideIndicators.querySelectorAll('.slide-indicator');
+                indicators.forEach((indicator, index) => indicator.classList.toggle('active', index === appState.currentSlide));
+                this.stopSlideshow();
+                this.startSlideshow();
+            }
+        };
+
+        const api = {
+            jsonpRequest(action, params, callback) {
+                if (!appState.scriptUrl) {
+                    utils.showNotification("URL Web App belum diatur.", "error");
+                    utils.showPage('setup');
+                    return;
+                }
+                utils.toggleLoader(true);
+                const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+                window[callbackName] = function(data) {
+                    delete window[callbackName];
+                    if (document.body.contains(script)) document.body.removeChild(script);
+                    utils.toggleLoader(false);
+                    callback(data);
+                };
+                const script = document.createElement('script');
+                let url = `${appState.scriptUrl}?action=${action}&callback=${callbackName}`;
+                if (params) {
+                    Object.keys(params).forEach(key => {
+                        if (params[key] !== undefined && params[key] !== null) {
+                            url += `&${key}=${encodeURIComponent(params[key])}`;
+                        }
+                    });
+                }
+                script.src = url;
+                script.onerror = () => {
+                    utils.showNotification('Gagal terhubung ke server.', 'error');
+                    delete window[callbackName];
+                    if (document.body.contains(script)) document.body.removeChild(script);
+                    utils.toggleLoader(false);
+                };
+                document.body.appendChild(script);
+            },
+
+            loginPemilih(nis) {
+                this.jsonpRequest('loginPemilih', { nis }, (response) => {
+                    if (response.status === 'success') {
+                        if (response.data.sudahMemilih) {
+                            utils.showPage('thankYou');
+                        } else {
+                            appState.voter = response.data;
+                            utils.updateVoterBadges();
+                            voteFlow.showVoteKetuaPage();
+                            utils.showNotification(`Selamat datang, ${appState.voter.nama}!`, 'success');
+                        }
+                    } else utils.showNotification(response.message, 'error');
+                });
+            },
+
+            loadCandidates(position) {
+                const action = position === 'ketua' ? 'getKandidatKetua' : 'getKandidatWakil';
+                this.jsonpRequest(action, null, (response) => {
+                    if (response.status === 'success') {
+                        appState.candidates[position] = response.data;
+                        voteFlow.renderCandidates(position);
+                    } else utils.showNotification(`Gagal memuat data kandidat ${position}.`, 'error');
+                });
+            },
+
+            submitVoteDuaPosisi() {
+                if (!appState.selections.ketua || !appState.selections.wakil) {
+                    utils.showNotification("Silakan pilih kedua kandidat.", "error");
+                    return;
+                }
+                if (!appState.voter || !appState.voter.nis) {
+                    utils.showNotification("Data pemilih tidak valid.", "error");
+                    return;
+                }
+                const submitData = {
+                    nis: appState.voter.nis.toString().trim(),
+                    idKandidatKetua: appState.selections.ketua.id.toString().trim(),
+                    idKandidatWakil: appState.selections.wakil.id.toString().trim()
+                };
+                this.jsonpRequest('submitSuaraDuaPosisi', submitData, (response) => {
+                    if (response.status === 'success') {
+                        utils.closeModal();
+                        utils.showPage('thankYou');
+                        utils.showNotification('Suara Anda berhasil direkam!', 'success');
+                    } else utils.showNotification(response.message, 'error');
+                });
+            },
+
+            fetchAndDrawResults() {
+                this.jsonpRequest('getHasilDuaPosisi', null, (response) => {
+                    if (response.status === 'success') resultsFlow.updateResults(response);
+                    else utils.showNotification('Gagal memuat hasil perhitungan suara.', 'error');
+                });
+            }
+        };
+
+        const voteFlow = {
+            showVoteKetuaPage() {
+                utils.showPage('voteKetua');
+                api.loadCandidates('ketua');
+            },
+            showVoteWakilPage() {
+                if (!appState.selections.ketua) {
+                    utils.showNotification('Silakan pilih ketua terlebih dahulu.', 'error');
+                    return;
+                }
+                utils.updateVoterBadges();
+                elements.selectedKetuaNameSpan.textContent = appState.selections.ketua.name;
+                utils.showPage('voteWakil');
+                api.loadCandidates('wakil');
+            },
+
+            renderCandidates(position) {
+                const container = position === 'ketua' ? elements.candidateListKetuaDiv : elements.candidateListWakilDiv;
+                const candidates = appState.candidates[position];
+                container.innerHTML = '';
+                
+                if (!candidates || candidates.length === 0) {
+                    container.innerHTML = `
+                        <div class="card p-6 text-center" style="grid-column: 1 / -1;">
+                            <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-2xl text-amber-500"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-700 mb-1">Data Kandidat Tidak Tersedia</h3>
+                            <p class="text-slate-500 text-sm">Silakan hubungi administrator.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const positionLabel = position === 'ketua' ? 'KETUA' : 'WAKIL';
+                const positionIcon = position === 'ketua' ? 'fa-user-tie' : 'fa-user-friends';
+                
+                candidates.forEach((candidate, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'candidate-card';
+                    card.setAttribute('data-id', candidate.id);
+                    card.setAttribute('data-name', candidate.nama);
+                    card.setAttribute('data-position', position);
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    
+                    const photoUrl = utils.convertGoogleDriveUrl(candidate.foto_url);
+                    const safeName = utils.escapeHtml(candidate.nama);
+                    const safeVisi = utils.escapeHtml(candidate.visi);
+                    const safeMisi = utils.escapeHtml(candidate.misi);
+                    
+                    card.innerHTML = `
+                        <div class="candidate-card-header">
+                            <div class="candidate-position-label">
+                                <i class="fas ${positionIcon}"></i>
+                                ${positionLabel}
+                            </div>
+                            <div class="candidate-number-badge">${candidate.id}</div>
+                        </div>
+                        <div class="candidate-photo-wrapper">
+                            <div class="candidate-photo-ring"></div>
+                            <img src="${photoUrl}" alt="Foto ${safeName}" class="candidate-photo" loading="lazy"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/150x150/E2E8F0/4A5568?text=Foto';">
+                            <div class="candidate-checkmark"><i class="fas fa-check"></i></div>
+                        </div>
+                        <div class="candidate-card-body">
+                            <h3 class="candidate-name">${safeName}</h3>
+                            <div class="candidate-divider"></div>
+                            <div class="candidate-info-section">
+                                <div class="candidate-info-header visi"><i class="fas fa-eye"></i> Visi</div>
+                                <p class="candidate-info-text" title="${safeVisi}">${safeVisi}</p>
+                            </div>
+                            <div class="candidate-info-section">
+                                <div class="candidate-info-header misi"><i class="fas fa-bullseye"></i> Misi</div>
+                                <p class="candidate-info-text" title="${safeMisi}">${safeMisi}</p>
+                            </div>
+                            <div class="candidate-footer">
+                                <i class="fas fa-hand-pointer"></i>
+                                <span class="candidate-footer-text">Ketuk untuk memilih</span>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                    card.addEventListener('click', () => this.handleCandidateSelection(card, position));
+                });
+            },
+
+            handleCandidateSelection(card, position) {
+                const container = position === 'ketua' ? elements.candidateListKetuaDiv : elements.candidateListWakilDiv;
+                const candidateId = card.getAttribute('data-id');
+                const candidateName = card.getAttribute('data-name');
+                
+                if (!candidateId || !candidateName) {
+                    utils.showNotification('Data kandidat tidak valid.', 'error');
+                    return;
+                }
+                
+                container.querySelectorAll('.candidate-card').forEach(c => {
+                    c.classList.remove('selected');
+                    const ft = c.querySelector('.candidate-footer-text');
+                    if (ft) ft.textContent = 'Ketuk untuk memilih';
+                });
+                
+                card.classList.add('selected');
+                const footerText = card.querySelector('.candidate-footer-text');
+                if (footerText) {
+                    footerText.textContent = position === 'ketua' ? 'Ketua Terpilih ✓' : 'Wakil Terpilih ✓';
+                }
+                
+                if (position === 'ketua') {
+                    appState.selections.ketua = { id: candidateId, name: candidateName };
+                    elements.nextToWakilBtn.disabled = false;
+                    utils.showNotification(`✨ ${candidateName} dipilih sebagai Ketua OSIS`, 'success');
+                } else {
+                    appState.selections.wakil = { id: candidateId, name: candidateName };
+                    elements.submitAllVotesBtn.disabled = false;
+                    utils.showNotification(`✨ ${candidateName} dipilih sebagai Wakil Ketua OSIS`, 'success');
+                }
+            },
+
+            showConfirmationModal() {
+                if (!appState.selections.ketua || !appState.selections.wakil) {
+                    utils.showNotification('Silakan pilih kedua kandidat.', 'error');
+                    return;
+                }
+                elements.modalSelections.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-indigo-50 rounded-xl">
+                            <div>
+                                <strong class="text-indigo-700 text-sm">Ketua OSIS:</strong>
+                                <p class="text-indigo-900 font-semibold">${utils.escapeHtml(appState.selections.ketua.name)}</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                <i class="fas fa-user-tie text-indigo-600"></i>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-emerald-50 rounded-xl">
+                            <div>
+                                <strong class="text-emerald-700 text-sm">Wakil Ketua OSIS:</strong>
+                                <p class="text-emerald-900 font-semibold">${utils.escapeHtml(appState.selections.wakil.name)}</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                                <i class="fas fa-user-friends text-emerald-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-slate-600 text-sm">Apakah Anda yakin dengan pilihan ini?</p>
+                `;
+                utils.showModal();
+            }
+        };
+
+        const resultsFlow = {
+            startRefreshTimer() {
+                appState.refreshTimerSeconds = CONFIG.REFRESH_SECONDS;
+                elements.refreshCountdown.textContent = formatCountdown.toMMSS(appState.refreshTimerSeconds);
+                if (appState.refreshTimerInterval) clearInterval(appState.refreshTimerInterval);
+                appState.refreshTimerInterval = setInterval(() => {
+                    appState.refreshTimerSeconds--;
+                    elements.refreshCountdown.textContent = formatCountdown.toMMSS(appState.refreshTimerSeconds);
+                    if (appState.refreshTimerSeconds <= 0) {
+                        clearInterval(appState.refreshTimerInterval);
+                        appState.refreshTimerInterval = null;
+                        api.fetchAndDrawResults();
+                        this.startRefreshTimer();
+                        utils.showNotification('Hasil pemilihan telah diperbarui', 'info');
+                    }
+                }, 1000);
+            },
+
+            stopResultsRefresh() {
+                if (appState.resultsInterval) { clearInterval(appState.resultsInterval); appState.resultsInterval = null; }
+                if (appState.refreshTimerInterval) { clearInterval(appState.refreshTimerInterval); appState.refreshTimerInterval = null; }
+            },
+
+            updateResults(resultsData) {
+                const processedKetua = this.processCandidateData(resultsData.data.ketua, resultsData.mapping.ketua, resultsData.photos.ketua);
+                this.renderResults(processedKetua, 'ketua');
+                const processedWakil = this.processCandidateData(resultsData.data.wakil, resultsData.mapping.wakil, resultsData.photos.wakil);
+                this.renderResults(processedWakil, 'wakil');
+                
+                const totalVotes = resultsData.totalSuara;
+                const totalPemilih = resultsData.totalPemilih;
+                const participation = totalPemilih > 0 ? parseFloat(((totalVotes / totalPemilih) * 100).toFixed(1)) : 0;
+                
+                utils.animateCountUp(elements.totalVotes, totalVotes);
+                utils.animateCountUp(elements.participationRate, participation, true);
+                this.updateParticipationSlideshow(totalVotes, totalPemilih);
+                this.updateLeadingCandidates(processedKetua, processedWakil);
+            },
+
+            updateParticipationSlideshow(voted, total) {
+                const notVoted = Math.max(0, total - voted);
+                const participationPercentage = total > 0 ? ((voted / total) * 100).toFixed(1) : 0;
+                elements.slideshowParticipationPercentage.textContent = `${participationPercentage}%`;
+                elements.slideshowVotedCount.textContent = voted;
+                elements.slideshowNotVotedCount.textContent = notVoted;
+                
+                const chartData = {
+                    labels: ['Sudah Memilih', 'Belum Memilih'],
+                    datasets: [{
+                        data: [voted, notVoted],
+                        backgroundColor: ['rgba(79, 70, 229, 0.9)', 'rgba(148, 163, 184, 0.7)'],
+                        borderColor: ['#4f46e5', '#94a3b8'],
+                        borderWidth: 3, hoverOffset: 8
+                    }]
+                };
+                
+                if (appState.charts.participation) {
+                    appState.charts.participation.data = chartData;
+                    appState.charts.participation.update();
+                } else {
+                    appState.charts.participation = new Chart(elements.slideshowParticipationChart, {
+                        type: 'doughnut', data: chartData,
+                        options: this.getChartOptions((value, total) => {
+                            const pct = total > 0 ? Math.round((value / total) * 100) : 0;
+                            return `${value} (${pct}%)`;
+                        })
+                    });
+                }
+            },
+
+            getChartOptions(tooltipFormatter) {
+                return {
+                    responsive: true, maintainAspectRatio: false, cutout: '62%',
+                    animation: { animateRotate: true, animateScale: true, duration: 1000, easing: 'easeOutCubic' },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { padding: 15, usePointStyle: true, pointStyle: 'circle', boxWidth: 10, boxHeight: 10,
+                                font: { size: 12, weight: '600', family: 'Inter' }, color: '#475569' }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)', padding: 12, cornerRadius: 10,
+                            titleFont: { size: 13, weight: '700', family: 'Inter' },
+                            bodyFont: { size: 12, family: 'Inter' },
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${tooltipFormatter(context.raw, context.dataset.data.reduce((a, b) => a + b, 0))}`;
+                                }
+                            }
+                        }
+                    }
+                };
+            },
+
+            processCandidateData(results, mapping, photos) {
+                const sortedIds = Object.keys(mapping).sort((a, b) => parseInt(a) - parseInt(b));
+                const candidates = sortedIds.map(id => ({
+                    id: id, name: mapping[id] || `Kandidat ${id}`,
+                    votes: results[id] || 0, photo: utils.convertGoogleDriveUrl(photos[id])
+                }));
+                candidates.sort((a, b) => b.votes - a.votes);
+                const totalVotes = candidates.reduce((sum, c) => sum + c.votes, 0);
+                candidates.forEach(c => {
+                    c.percentage = totalVotes > 0 ? ((c.votes / totalVotes) * 100).toFixed(1) : 0;
+                });
+                return { candidates, totalVotes };
+            },
+
+            renderResults(processedData, position) {
+                const { candidates, totalVotes } = processedData;
+                elements[`slideshowTotal${position.charAt(0).toUpperCase() + position.slice(1)}Votes`].textContent = `${totalVotes} suara`;
+                this.renderPieChart(candidates, position);
+                this.renderCandidateList(candidates, totalVotes, position);
+            },
+
+            renderPieChart(candidates, position) {
+                const labels = candidates.map(c => c.name);
+                const values = candidates.map(c => c.votes);
+                const backgrounds = candidates.map((_, i) => CONFIG.PALETTE_DONUT[i % CONFIG.PALETTE_DONUT.length].bg);
+                const borders = candidates.map((_, i) => CONFIG.PALETTE_DONUT[i % CONFIG.PALETTE_DONUT.length].border);
+                const chartElement = position === 'ketua' ? elements.slideshowKetuaPieChart : elements.slideshowWakilPieChart;
+                
+                const chartData = {
+                    labels: labels,
+                    datasets: [{ data: values, backgroundColor: backgrounds, borderColor: borders, borderWidth: 3, hoverOffset: 10 }]
+                };
+                
+                if (appState.charts[position]) {
+                    appState.charts[position].data = chartData;
+                    appState.charts[position].update();
+                    return;
+                }
+                
+                appState.charts[position] = new Chart(chartElement, {
+                    type: 'doughnut', data: chartData,
+                    options: this.getChartOptions((value, total) => {
+                        const pct = total > 0 ? Math.round((value / total) * 100) : 0;
+                        return `${value} suara (${pct}%)`;
+                    })
+                });
+            },
+
+            renderCandidateList(candidates, totalVotes, position) {
+                const container = position === 'ketua' ? elements.slideshowKetuaCandidatesList : elements.slideshowWakilCandidatesList;
+                container.innerHTML = '';
+                
+                let winnerId = null, maxVotes = -1;
+                candidates.forEach(c => {
+                    if (c.votes > maxVotes) { maxVotes = c.votes; winnerId = c.id; }
+                });
+                
+                candidates.forEach((candidate, index) => {
+                    const isWinner = candidate.id === winnerId && candidate.votes > 0;
+                    const percentage = totalVotes > 0 ? (candidate.votes / totalVotes) * 100 : 0;
+                    const rank = index + 1;
+                    
+                    let rankClass = 'rank-other';
+                    if (rank === 1) rankClass = 'rank-1';
+                    else if (rank === 2) rankClass = 'rank-2';
+                    else if (rank === 3) rankClass = 'rank-3';
+                    
+                    const el = document.createElement('div');
+                    el.className = `candidate-result ${isWinner ? 'winner' : ''}`;
+                    el.style.animationDelay = `${index * 0.12}s`;
+                    
+                    el.innerHTML = `
+                        ${isWinner ? `<div class="winner-crown"><i class="fas fa-crown"></i><span>Pemenang</span></div>` : ''}
+                        <div class="candidate-rank ${rankClass}">${rank === 1 && isWinner ? '<i class="fas fa-crown"></i>' : rank}</div>
+                        <img src="${candidate.photo}" alt="${utils.escapeHtml(candidate.name)}" class="candidate-photo-results"
+                             onerror="this.src='https://placehold.co/150x150/E2E8F0/4A5568?text=Foto'">
+                        <div class="candidate-details">
+                            <div class="candidate-name-result">${utils.escapeHtml(candidate.name)}</div>
+                            <div class="candidate-stats">
+                                <span class="vote-count-badge"><i class="fas fa-check-to-slot"></i> ${candidate.votes} suara</span>
+                                <span class="vote-percentage">${candidate.percentage}%</span>
+                            </div>
+                            <div class="vote-progress">
+                                <div class="vote-progress-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                    setTimeout(() => {
+                        const fill = el.querySelector('.vote-progress-fill');
+                        if (fill) fill.style.width = `${percentage}%`;
+                    }, 150 + index * 150);
+                });
+            },
+
+            updateLeadingCandidates(processedKetua, processedWakil) {
+                let maxK = -1, leadK = '-';
+                processedKetua.candidates.forEach(c => { if (c.votes > maxK && c.votes > 0) { maxK = c.votes; leadK = c.name; } });
+                let maxW = -1, leadW = '-';
+                processedWakil.candidates.forEach(c => { if (c.votes > maxW && c.votes > 0) { maxW = c.votes; leadW = c.name; } });
+                elements.leadingKetua.textContent = leadK;
+                elements.leadingWakil.textContent = leadW;
+            },
+
+            showResultsPage() {
+                utils.showPage('results');
+                api.fetchAndDrawResults();
+                this.startRefreshTimer();
+                if (appState.resultsInterval) clearInterval(appState.resultsInterval);
+                appState.resultsInterval = setInterval(api.fetchAndDrawResults, CONFIG.REFRESH_INTERVAL);
+                utils.showNotification('Memuat hasil pemilihan terbaru', 'info');
+            }
+        };
+
+        const eventHandlers = {
+            initialize() {
+                elements.setupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const url = elements.scriptUrlInput.value.trim();
+                    if (url) {
+                        try {
+                            new URL(url);
+                            appState.setScriptUrl(url);
+                            utils.showPage('login');
+                            utils.showNotification('URL Web App berhasil disimpan', 'success');
+                        } catch(e) { utils.showNotification("Format URL tidak valid.", "error"); }
+                    } else utils.showNotification("URL tidak boleh kosong.", "error");
+                });
+
+                elements.loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const nis = elements.nisInput.value.trim();
+                    if (!nis) { utils.showNotification('NIS tidak boleh kosong.', 'error'); return; }
+                    api.loginPemilih(nis);
+                });
+
+                elements.showResultsBtn.addEventListener('click', () => resultsFlow.showResultsPage());
+                elements.changeUrlBtn.addEventListener('click', () => utils.showPage('setup'));
+                elements.backToVoteBtn.addEventListener('click', () => {
+                    if (appState.voter) voteFlow.showVoteKetuaPage();
+                    else utils.showPage('login');
+                });
+                elements.logoutBtn.addEventListener('click', () => {
+                    appState.resetAll();
+                    elements.nisInput.value = '';
+                    utils.updateVoterBadges();
+                    if (elements.thankyouVoterName) elements.thankyouVoterName.textContent = '—';
+                    if (elements.thankyouVoterClass) elements.thankyouVoterClass.textContent = '—';
+                    utils.showPage('login');
+                    utils.showNotification('Anda telah keluar dari sistem', 'info');
+                });
+                
+                if (elements.thankyouViewResultsBtn) {
+                    elements.thankyouViewResultsBtn.addEventListener('click', () => resultsFlow.showResultsPage());
+                }
+                
+                elements.nextToWakilBtn.addEventListener('click', () => voteFlow.showVoteWakilPage());
+                elements.backToKetuaBtn.addEventListener('click', () => voteFlow.showVoteKetuaPage());
+                elements.submitAllVotesBtn.addEventListener('click', () => voteFlow.showConfirmationModal());
+                
+                elements.confirmVoteBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); api.submitVoteDuaPosisi(); });
+                elements.cancelVoteBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); utils.closeModal(); });
+                elements.confirmationModal.addEventListener('click', (e) => { if (e.target === elements.confirmationModal) utils.closeModal(); });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && elements.confirmationModal.classList.contains('active')) utils.closeModal();
+                });
+                elements.notificationClose.addEventListener('click', () => utils.hideNotification());
+                
+                elements.slidePrev.addEventListener('click', () => slideshowFlow.prevSlide());
+                elements.slideNext.addEventListener('click', () => slideshowFlow.nextSlide());
+                elements.slideIndicators.querySelectorAll('.slide-indicator').forEach((indicator) => {
+                    indicator.addEventListener('click', () => {
+                        slideshowFlow.goToSlide(parseInt(indicator.getAttribute('data-slide')));
+                    });
+                });
+
+                this.initializeApp();
+            },
+
+            initializeApp() {
+                utils.createInteractiveBackground();
+                utils.initParticles();
+                elements.refreshCountdown.textContent = formatCountdown.toMMSS(CONFIG.REFRESH_SECONDS);
+                if (appState.scriptUrl) {
+                    elements.scriptUrlInput.value = appState.scriptUrl;
+                    utils.showPage('login');
+                } else {
+                    utils.showPage('setup');
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => eventHandlers.initialize());
+    </script>
+</body>
+</html>
