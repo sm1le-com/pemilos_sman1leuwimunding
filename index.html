@@ -2968,216 +2968,633 @@
         }
 
         /* ============================================================ */
-/* ===== PC OPTIMIZATION — ADMIN DASHBOARD ===== */
-/* ============================================================ */
+        /* ===== PC OPTIMIZATION — ADMIN DASHBOARD ===== */
+        /* ============================================================ */
 
-@media (min-width: 1024px) {
-    /* Batasi lebar konten supaya tidak melebar di monitor besar */
-    #admin-dashboard-page {
-        max-width: 1100px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+        @media (min-width: 1024px) {
+            #admin-dashboard-page {
+                max-width: 1100px;
+                margin-left: auto;
+                margin-right: auto;
+            }
 
-    /* Hero admin: sedikit lebih lebar & tinggi */
-    .admin-hero {
-        max-width: 100%;
-        padding: 2.75rem 2.5rem 2.25rem;
-        border-radius: 1.5rem;
-    }
-    .admin-hero-title { font-size: 2rem; }
-    .admin-hero-subtitle { font-size: 0.95rem; }
-    .admin-hero-icon {
-        width: 88px;
-        height: 88px;
-        font-size: 2.25rem;
-    }
+            .admin-hero {
+                max-width: 100%;
+                padding: 2.75rem 2.5rem 2.25rem;
+                border-radius: 1.5rem;
+            }
+            .admin-hero-title { font-size: 2rem; }
+            .admin-hero-subtitle { font-size: 0.95rem; }
+            .admin-hero-icon {
+                width: 88px;
+                height: 88px;
+                font-size: 2.25rem;
+            }
 
-    /* Summary cards: lebih besar & equal tinggi */
-    .admin-summary-grid {
-        max-width: 100%;
-        gap: 1.25rem;
-        margin-bottom: 1.5rem;
-    }
-    .admin-summary-card {
-        padding: 1.75rem 1.5rem;
-        border-radius: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 160px;
-    }
-    .admin-summary-icon {
-        width: 56px;
-        height: 56px;
-        font-size: 1.35rem;
-        border-radius: 16px;
-        margin-bottom: 0.85rem;
-    }
-    .admin-summary-value {
-        font-size: 2.75rem;
-        font-weight: 900;
-        letter-spacing: -0.03em;
-        margin-bottom: 0.4rem;
-    }
-    .admin-summary-label {
-        font-size: 0.78rem;
-        letter-spacing: 0.05em;
-    }
+            .admin-summary-grid {
+                max-width: 100%;
+                gap: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+            .admin-summary-card {
+                padding: 1.75rem 1.5rem;
+                border-radius: 1.25rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 160px;
+            }
+            .admin-summary-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 1.35rem;
+                border-radius: 16px;
+                margin-bottom: 0.85rem;
+            }
+            .admin-summary-value {
+                font-size: 2.75rem;
+                font-weight: 900;
+                letter-spacing: -0.03em;
+                margin-bottom: 0.4rem;
+            }
+            .admin-summary-label {
+                font-size: 0.78rem;
+                letter-spacing: 0.05em;
+            }
 
-    /* 🎯 FIX UTAMA: 4 menu card = 4 kolom rata */
-    .admin-menu-grid {
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 1.1rem;
-        margin-bottom: 1.5rem;
-    }
-    .admin-menu-card {
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: left;
-        padding: 1.5rem 1.25rem;
-        min-height: 180px;
-        border-radius: 1.25rem;
-        position: relative;
-    }
-    .admin-menu-icon {
-        width: 54px;
-        height: 54px;
-        font-size: 1.35rem;
-        border-radius: 15px;
-        margin-bottom: 0.85rem;
-    }
-    .admin-menu-title {
-        font-size: 1rem;
-        font-weight: 900;
-        margin-bottom: 6px;
-        letter-spacing: -0.01em;
-    }
-    .admin-menu-desc {
-        font-size: 0.75rem;
-        line-height: 1.45;
-        color: #64748b;
-    }
-    .admin-menu-arrow {
-        position: absolute;
-        bottom: 1.25rem;
-        right: 1.25rem;
-        font-size: 1rem;
-        color: #cbd5e1;
-    }
-    .admin-menu-card:hover {
-        transform: translateY(-6px);
-    }
-    .admin-menu-card:hover .admin-menu-arrow {
-        color: #4f46e5;
-        transform: translateX(4px);
-    }
+            .admin-menu-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+            .admin-menu-card {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+                padding: 1.5rem 1.25rem;
+                min-height: 180px;
+                border-radius: 1.25rem;
+                position: relative;
+            }
+            .admin-menu-icon {
+                width: 54px;
+                height: 54px;
+                font-size: 1.35rem;
+                border-radius: 15px;
+                margin-bottom: 0.85rem;
+            }
+            .admin-menu-title {
+                font-size: 1rem;
+                font-weight: 900;
+                margin-bottom: 6px;
+                letter-spacing: -0.01em;
+            }
+            .admin-menu-desc {
+                font-size: 0.75rem;
+                line-height: 1.45;
+                color: #64748b;
+            }
+            .admin-menu-arrow {
+                position: absolute;
+                bottom: 1.25rem;
+                right: 1.25rem;
+                font-size: 1rem;
+                color: #cbd5e1;
+            }
+            .admin-menu-card:hover {
+                transform: translateY(-6px);
+            }
+            .admin-menu-card:hover .admin-menu-arrow {
+                color: #4f46e5;
+                transform: translateX(4px);
+            }
 
-    /* Tombol logout: sedikit lebih lebar & tidak full-width */
-    .admin-logout-btn {
-        max-width: 340px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 1rem 1.5rem;
-        font-size: 0.9rem;
-        border-radius: 14px;
-    }
-}
+            .admin-logout-btn {
+                max-width: 340px;
+                margin-left: auto;
+                margin-right: auto;
+                padding: 1rem 1.5rem;
+                font-size: 0.9rem;
+                border-radius: 14px;
+            }
+        }
 
-/* ============================================================ */
-/* ===== MONITOR BESAR (>= 1440px) ===== */
-/* ============================================================ */
-@media (min-width: 1440px) {
-    #admin-dashboard-page {
-        max-width: 1200px;
-    }
+        @media (min-width: 1440px) {
+            #admin-dashboard-page {
+                max-width: 1200px;
+            }
 
-    .admin-hero {
-        padding: 3rem 3rem 2.5rem;
-    }
-    .admin-hero-title { font-size: 2.25rem; }
-    .admin-hero-icon {
-        width: 96px;
-        height: 96px;
-        font-size: 2.5rem;
-    }
+            .admin-hero {
+                padding: 3rem 3rem 2.5rem;
+            }
+            .admin-hero-title { font-size: 2.25rem; }
+            .admin-hero-icon {
+                width: 96px;
+                height: 96px;
+                font-size: 2.5rem;
+            }
 
-    .admin-summary-value { font-size: 3rem; }
-    .admin-summary-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
+            .admin-summary-value { font-size: 3rem; }
+            .admin-summary-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
 
-    .admin-menu-card {
-        min-height: 200px;
-        padding: 1.75rem 1.5rem;
-    }
-    .admin-menu-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    .admin-menu-title { font-size: 1.1rem; }
-    .admin-menu-desc { font-size: 0.8rem; }
-}
+            .admin-menu-card {
+                min-height: 200px;
+                padding: 1.75rem 1.5rem;
+            }
+            .admin-menu-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            .admin-menu-title { font-size: 1.1rem; }
+            .admin-menu-desc { font-size: 0.8rem; }
+        }
 
-/* ============================================================ */
-/* ===== TABLET FALLBACK (768-1023px) ===== */
-/* ============================================================ */
-@media (min-width: 768px) and (max-width: 1023px) {
-    /* 4 kartu → 2x2 grid supaya rapi */
-    .admin-menu-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 0.9rem;
-    }
-    .admin-menu-card {
-        min-height: 130px;
-        padding: 1.1rem 1rem;
-    }
-    .admin-menu-icon {
-        width: 46px;
-        height: 46px;
-        font-size: 1.15rem;
-    }
-    .admin-menu-title { font-size: 0.92rem; }
-    .admin-menu-desc { font-size: 0.7rem; }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .admin-menu-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.9rem;
+            }
+            .admin-menu-card {
+                min-height: 130px;
+                padding: 1.1rem 1rem;
+            }
+            .admin-menu-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 1.15rem;
+            }
+            .admin-menu-title { font-size: 0.92rem; }
+            .admin-menu-desc { font-size: 0.7rem; }
 
-    .admin-summary-card { min-height: 140px; padding: 1.35rem 1rem; }
-    .admin-summary-value { font-size: 2.1rem; }
-    .admin-summary-icon { width: 48px; height: 48px; font-size: 1.15rem; }
-}
+            .admin-summary-card { min-height: 140px; padding: 1.35rem 1rem; }
+            .admin-summary-value { font-size: 2.1rem; }
+            .admin-summary-icon { width: 48px; height: 48px; font-size: 1.15rem; }
+        }
 
-/* ============================================================ */
-/* ===== HP (< 640px): tetap 1 kolom, tetap kompak ===== */
-/* ============================================================ */
-@media (max-width: 639px) {
-    .admin-menu-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 0.75rem !important;
-    }
-    .admin-menu-card {
-        flex-direction: row;
-        align-items: center;
-        min-height: auto;
-        padding: 0.9rem 1rem;
-    }
-    .admin-menu-icon {
-        width: 44px;
-        height: 44px;
-        font-size: 1.05rem;
-        margin-bottom: 0;
-    }
-    .admin-menu-content { text-align: left; }
-    .admin-menu-title { font-size: 0.9rem; }
-    .admin-menu-desc { font-size: 0.68rem; }
-    .admin-menu-arrow {
-        position: static;
-        color: #94a3b8;
-    }
-}
+        @media (max-width: 639px) {
+            .admin-menu-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.75rem !important;
+            }
+            .admin-menu-card {
+                flex-direction: row;
+                align-items: center;
+                min-height: auto;
+                padding: 0.9rem 1rem;
+            }
+            .admin-menu-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 1.05rem;
+                margin-bottom: 0;
+            }
+            .admin-menu-content { text-align: left; }
+            .admin-menu-title { font-size: 0.9rem; }
+            .admin-menu-desc { font-size: 0.68rem; }
+            .admin-menu-arrow {
+                position: static;
+                color: #94a3b8;
+            }
+        }
+
+        /* ============================================================ */
+        /* ===== ENHANCED RING — MULTI-LAYER ANIMATION SYSTEM ===== */
+        /* ============================================================ */
+
+        /* ---------- Layer 1: Aurora liquid dalam ---------- */
+        .ring-aurora-inner {
+            position: absolute;
+            inset: 16%;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 30%,
+                    rgba(251, 191, 36, 0.20) 0%,
+                    transparent 45%),
+                radial-gradient(circle at 70% 70%,
+                    rgba(236, 72, 153, 0.18) 0%,
+                    transparent 50%),
+                radial-gradient(circle at 60% 30%,
+                    rgba(129, 140, 248, 0.15) 0%,
+                    transparent 55%);
+            filter: blur(18px);
+            pointer-events: none;
+            z-index: 0;
+            animation: auroraDrift 9s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+        @keyframes auroraDrift {
+            0%, 100% { transform: scale(1) rotate(0deg);      opacity: 0.75; }
+            33%      { transform: scale(1.10) rotate(120deg); opacity: 1; }
+            66%      { transform: scale(1.05) rotate(240deg); opacity: 0.85; }
+        }
+
+        /* ---------- Layer 2: Halo bernapas ---------- */
+        .ring-halo {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                rgba(251, 191, 36, 0.22) 0%,
+                rgba(236, 72, 153, 0.10) 45%,
+                transparent 72%);
+            filter: blur(16px);
+            pointer-events: none;
+            z-index: 0;
+            animation: haloBreath 4.2s ease-in-out infinite;
+        }
+        @keyframes haloBreath {
+            0%, 100% { transform: scale(1);    opacity: 0.55; }
+            50%      { transform: scale(1.12); opacity: 1; }
+        }
+
+        /* ---------- Layer 4 & 6: Deco rings ---------- */
+        .ring-deco {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .ring-deco-outer { animation: decoRotateCW 22s linear infinite; }
+        .ring-deco-inner { animation: decoRotateCCW 16s linear infinite; }
+        @keyframes decoRotateCW  { to { transform: rotate(360deg);  } }
+        @keyframes decoRotateCCW { to { transform: rotate(-360deg); } }
+
+        /* ---------- Layer 5: Progress shimmer ---------- */
+        .ring-progress-shimmer {
+            fill: none;
+            stroke: url(#shimmerGradient);
+            stroke-width: 14;
+            stroke-linecap: round;
+            stroke-dasharray: 90 534;
+            stroke-dashoffset: 0;
+            opacity: 0;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            animation: shimmerFlow 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+            will-change: stroke-dashoffset, opacity;
+        }
+        @keyframes shimmerFlow {
+            0%   { stroke-dashoffset: 534; opacity: 0; }
+            15%  { opacity: 0.9; }
+            60%  { opacity: 0.6; }
+            100% { stroke-dashoffset: -180; opacity: 0; }
+        }
+
+        /* ---------- Layer 11: Energy waves ---------- */
+        .ring-waves {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .ring-wave {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(251, 191, 36, 0.75);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .ring-wave.emit {
+            animation: waveEmit 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+        .ring-wave.emit.violet { border-color: rgba(167, 139, 250, 0.8); }
+        .ring-wave.emit.pink   { border-color: rgba(244, 114, 182, 0.8); }
+        @keyframes waveEmit {
+            0%   { transform: scale(0.82); opacity: 0.95; border-width: 3px; }
+            100% { transform: scale(1.42); opacity: 0;    border-width: 1px; }
+        }
+
+        /* ---------- Layer 12: Comet dengan ekor ---------- */
+        .ring-comet {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition:
+                left 1.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+                top  1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+            z-index: 8;
+            pointer-events: none;
+            will-change: left, top;
+        }
+        .ring-comet-head {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                #ffffff 0%,
+                #fde68a 30%,
+                #fbbf24 55%,
+                rgba(251, 191, 36, 0.35) 75%,
+                transparent 85%);
+            box-shadow:
+                0 0 14px #fbbf24,
+                0 0 28px rgba(251, 191, 36, 0.75),
+                0 0 46px rgba(251, 191, 36, 0.4);
+            animation: cometPulse 1.7s ease-in-out infinite;
+        }
+        .ring-comet-head::before {
+            content: '';
+            position: absolute;
+            inset: -9px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(251, 191, 36, 0.7);
+            animation: cometRipple 1.7s ease-out infinite;
+        }
+        @keyframes cometPulse {
+            0%, 100% { transform: scale(1); }
+            50%      { transform: scale(1.18); }
+        }
+        @keyframes cometRipple {
+            0%   { transform: scale(0.85); opacity: 0.9; }
+            100% { transform: scale(1.7);  opacity: 0; }
+        }
+
+        .ring-comet-tail {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 8px;
+            transform-origin: 0% 50%;
+            transform: translate(-100%, -50%) rotate(var(--comet-tail-angle, 0deg));
+            background: linear-gradient(90deg,
+                rgba(251, 191, 36, 0.85) 0%,
+                rgba(236, 72, 153, 0.45) 45%,
+                rgba(129, 140, 248, 0.15) 75%,
+                transparent 100%);
+            border-radius: 999px;
+            filter: blur(1.5px);
+            pointer-events: none;
+            transition: transform 1.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .ring-comet-tail::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 20px;
+            height: 3px;
+            transform: translateY(-50%);
+            background: linear-gradient(90deg,
+                rgba(129, 140, 248, 0.5) 0%,
+                transparent 100%);
+            border-radius: 999px;
+            filter: blur(2.5px);
+        }
+
+        /* ---------- Ring wrapper pulse (enhanced) ---------- */
+        .participation-ring-wrapper.pulse .ring-aurora-inner {
+            animation: auroraDrift 9s ease-in-out infinite,
+                       auroraBurst 1.1s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        @keyframes auroraBurst {
+            0%   { transform: scale(1);    opacity: 0.75; }
+            45%  { transform: scale(1.25); opacity: 1; }
+            100% { transform: scale(1);    opacity: 0.75; }
+        }
+
+        .participation-ring-glow-conic {
+            opacity: 0.62;
+            filter: blur(16px);
+        }
+
+        /* ---------- Live badge pulse ring ---------- */
+        .live-pulse-wrap {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .live-pulse-wrap .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.9);
+        }
+        .live-ripple {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1.5px solid #10b981;
+            animation: liveRingPulse 2s ease-out infinite;
+            pointer-events: none;
+        }
+        .live-ripple.ripple-2 { animation-delay: 1s; }
+        @keyframes liveRingPulse {
+            0%   { transform: scale(1);   opacity: 0.9; }
+            100% { transform: scale(2.8); opacity: 0; }
+        }
+
+        /* ---------- Hero bubbles ---------- */
+        .hero-bubbles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .hero-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(255, 255, 255, 0.85),
+                rgba(255, 255, 255, 0.18) 55%,
+                transparent 78%);
+            box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.35);
+            opacity: 0;
+            animation: bubbleRise 9s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+        @keyframes bubbleRise {
+            0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+            15%  { opacity: 0.65; }
+            60%  { opacity: 0.5; }
+            100% { transform: translateY(-160px) scale(1.25); opacity: 0; }
+        }
+
+        /* ---------- Percent shine sweep ---------- */
+        .participation-ring-percent.shine::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -130%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(100deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.75) 50%,
+                transparent 100%);
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            animation: percentShine 1.6s ease-in-out;
+        }
+        @keyframes percentShine {
+            0%   { left: -130%; }
+            100% { left: 130%; }
+        }
+
+        /* ---------- Milestone flash ---------- */
+        .participation-milestone.flash {
+            animation: milestoneFlash 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        @keyframes milestoneFlash {
+            0%   { transform: scale(1); }
+            25%  { transform: scale(1.18); box-shadow: 0 0 32px rgba(251, 191, 36, 0.85); }
+            60%  { transform: scale(1.04); box-shadow: 0 0 22px rgba(251, 191, 36, 0.55); }
+            100% { transform: scale(1); }
+        }
+
+        /* ---------- Quick stat bump ---------- */
+        .quick-stat-card.bump {
+            animation: quickStatBump 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        @keyframes quickStatBump {
+            0%   { transform: translateY(0) scale(1); }
+            35%  { transform: translateY(-6px) scale(1.04); box-shadow: 0 12px 28px -8px rgba(79, 70, 229, 0.35); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        /* ---------- Ring ticks (jam) ---------- */
+        .ring-ticks {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .ring-tick {
+            position: absolute;
+            width: 2px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.28);
+            border-radius: 2px;
+            transform: translate(-50%, -50%) rotate(var(--tick-rotate, 0deg));
+            transform-origin: center;
+            transition: background 0.5s ease, box-shadow 0.5s ease,
+                        height 0.4s ease, width 0.4s ease;
+        }
+        .ring-tick.major {
+            width: 3px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+        }
+        .ring-tick.passed {
+            background: linear-gradient(180deg, #fbbf24, #f59e0b);
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.95), 0 0 14px rgba(251, 191, 36, 0.45);
+        }
+        .ring-tick.major.passed {
+            background: linear-gradient(180deg, #fef3c7, #fbbf24);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 1), 0 0 22px rgba(251, 191, 36, 0.6);
+        }
+
+        /* ---------- Orbit particles ---------- */
+        .ring-orbit-particles {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 4;
+            animation: orbitRotate 24s linear infinite;
+        }
+        @keyframes orbitRotate { to { transform: rotate(360deg); } }
+        .ring-orbit-particle {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, #ffffff 0%, #c4b5fd 55%, transparent 100%);
+            box-shadow: 0 0 10px rgba(167, 139, 250, 0.95),
+                        0 0 20px rgba(167, 139, 250, 0.5);
+            animation: orbitParticlePulse 2.2s ease-in-out infinite;
+        }
+        .ring-orbit-particle.gold {
+            background: radial-gradient(circle, #ffffff 0%, #fbbf24 55%, transparent 100%);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.95),
+                        0 0 20px rgba(251, 191, 36, 0.5);
+        }
+        .ring-orbit-particle.pink {
+            background: radial-gradient(circle, #ffffff 0%, #f472b6 55%, transparent 100%);
+            box-shadow: 0 0 10px rgba(244, 114, 182, 0.95),
+                        0 0 20px rgba(244, 114, 182, 0.5);
+        }
+        @keyframes orbitParticlePulse {
+            0%, 100% { opacity: 0.55; }
+            50%      { opacity: 1; }
+        }
+
+        /* ============================================================ */
+        /* ===== RESPONSIVE — ENHANCED RING ===== */
+        /* ============================================================ */
+
+        @media (max-width: 480px) {
+            .ring-aurora-inner  { filter: blur(14px); }
+            .ring-halo          { filter: blur(12px); }
+            .ring-comet         { width: 16px; height: 16px; }
+            .ring-comet-tail    { width: 40px; height: 6px; }
+            .ring-comet-tail::after { display: none; }
+            .participation-ring-glow-conic { filter: blur(11px); opacity: 0.55; }
+            .ring-wave          { border-width: 1.5px; }
+            .ring-leading-dot   { width: 14px; height: 14px; }
+            .ring-orbit-particle { width: 5px; height: 5px; }
+            .ring-tick { width: 1.5px; height: 5px; }
+            .ring-tick.major { width: 2px; height: 8px; }
+        }
+
+        @media (max-width: 360px) {
+            .ring-aurora-inner  { display: none; }
+            .ring-deco-inner    { display: none; }
+            .ring-comet-tail::after { display: none; }
+            .participation-ring-glow-conic { display: none; }
+            .ring-comet-head {
+                box-shadow: 0 0 8px #fbbf24, 0 0 18px rgba(251, 191, 36, 0.6);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .ring-comet         { width: 26px; height: 26px; }
+            .ring-comet-tail    { width: 80px; height: 10px; }
+            .ring-aurora-inner  { filter: blur(22px); }
+            .ring-halo          { filter: blur(20px); }
+        }
+
+        @media (min-width: 1024px) {
+            .ring-comet         { width: 30px; height: 30px; }
+            .ring-comet-tail    { width: 100px; height: 11px; }
+            .ring-progress,
+            .ring-progress-glow,
+            .ring-progress-shimmer { stroke-width: 15; }
+            .ring-progress-glow { stroke-width: 24; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ring-deco-outer, .ring-deco-inner,
+            .ring-aurora-inner, .ring-halo,
+            .ring-progress-shimmer,
+            .ring-comet-head, .ring-comet-head::before,
+            .ring-wave.emit {
+                animation: none !important;
+            }
+            .ring-comet { transition-duration: 0.01ms; }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -3291,7 +3708,7 @@
             </div>
         </div>
 
-        <!-- ===== LOGIN PAGE (VOTER + ADMIN TOGGLE) ===== -->
+        <!-- ===== LOGIN PAGE ===== -->
         <div id="login-page" class="page">
             <div class="auth-wrapper">
                 <div class="auth-card">
@@ -3521,9 +3938,14 @@
                 <div class="participation-hero-orb orb-a"></div>
                 <div class="participation-hero-orb orb-b"></div>
                 <div class="participation-hero-rays"></div>
+                <div class="hero-bubbles" id="hero-bubbles"></div>
 
                 <div class="live-badge">
-                    <span class="live-dot"></span>
+                    <span class="live-pulse-wrap">
+                        <span class="live-dot"></span>
+                        <span class="live-ripple"></span>
+                        <span class="live-ripple ripple-2"></span>
+                    </span>
                     <i class="fas fa-broadcast-tower" style="font-size: 0.6rem;"></i>
                     <span>LIVE UPDATE</span>
                 </div>
@@ -3531,19 +3953,61 @@
                 <p class="participation-hero-subtitle">Pantau tingkat partisipasi pemilih secara real-time</p>
 
                 <div class="participation-ring-wrapper" id="participation-ring-wrapper">
+                    <div class="ring-aurora-inner"></div>
+                    <div class="ring-halo"></div>
                     <div class="participation-ring-glow-conic"></div>
+
+                    <svg class="ring-deco ring-deco-outer" viewBox="0 0 200 200" aria-hidden="true">
+                        <circle cx="100" cy="100" r="96" fill="none"
+                                stroke="rgba(255,255,255,0.18)" stroke-width="0.8"
+                                stroke-dasharray="1.5 5" stroke-linecap="round"/>
+                    </svg>
+
                     <svg class="participation-ring" viewBox="0 0 200 200">
                         <defs>
                             <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#fbbf24"/>
-                                <stop offset="50%" stop-color="#f472b6"/>
-                                <stop offset="100%" stop-color="#818cf8"/>
+                                <stop offset="0%" stop-color="#fbbf24">
+                                    <animate attributeName="stop-color"
+                                             values="#fbbf24;#f472b6;#818cf8;#34d399;#fbbf24"
+                                             dur="10s" repeatCount="indefinite"/>
+                                </stop>
+                                <stop offset="50%" stop-color="#f472b6">
+                                    <animate attributeName="stop-color"
+                                             values="#f472b6;#818cf8;#34d399;#fbbf24;#f472b6"
+                                             dur="10s" repeatCount="indefinite"/>
+                                </stop>
+                                <stop offset="100%" stop-color="#818cf8">
+                                    <animate attributeName="stop-color"
+                                             values="#818cf8;#34d399;#fbbf24;#f472b6;#818cf8"
+                                             dur="10s" repeatCount="indefinite"/>
+                                </stop>
+                            </linearGradient>
+
+                            <linearGradient id="shimmerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+                                <stop offset="45%" stop-color="rgba(255,255,255,0.85)"/>
+                                <stop offset="55%" stop-color="rgba(255,255,255,0.85)"/>
+                                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
                             </linearGradient>
                         </defs>
+
                         <circle class="ring-track" cx="100" cy="100" r="85"></circle>
-                        <circle class="ring-progress-glow" id="participation-ring-glow" cx="100" cy="100" r="85"></circle>
-                        <circle class="ring-progress" id="participation-ring" cx="100" cy="100" r="85"></circle>
+                        <circle class="ring-progress-glow" id="participation-ring-glow"
+                                cx="100" cy="100" r="85"></circle>
+                        <circle class="ring-progress" id="participation-ring"
+                                cx="100" cy="100" r="85"></circle>
+                        <circle class="ring-progress-shimmer"
+                                cx="100" cy="100" r="85"></circle>
                     </svg>
+
+                    <svg class="ring-deco ring-deco-inner" viewBox="0 0 200 200" aria-hidden="true">
+                        <circle cx="100" cy="100" r="72" fill="none"
+                                stroke="rgba(251, 191, 36, 0.28)" stroke-width="0.8"
+                                stroke-dasharray="4 8" stroke-linecap="round"/>
+                    </svg>
+
+                    <div class="ring-ticks" id="ring-ticks"></div>
+                    <div class="ring-orbit-particles" id="ring-orbit-particles"></div>
 
                     <div class="ring-marker" data-pct="25"></div>
                     <div class="ring-marker" data-pct="50"></div>
@@ -3551,6 +4015,12 @@
                     <div class="ring-marker" data-pct="100"></div>
 
                     <div class="ring-sparkles" id="ring-sparkles"></div>
+                    <div class="ring-waves" id="ring-waves"></div>
+
+                    <div class="ring-comet" id="ring-leading-dot">
+                        <div class="ring-comet-tail"></div>
+                        <div class="ring-comet-head"></div>
+                    </div>
 
                     <div class="participation-ring-center">
                         <div class="participation-ring-percent" id="participation-ring-percent">0%</div>
@@ -3643,8 +4113,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <!-- ===== THANK YOU PAGE ===== -->
@@ -3899,7 +4367,7 @@
                     </span>
                     <span class="footer-pill version">
                         <i class="fas fa-code-branch"></i>
-                        <span>v2.0</span>
+                        <span>v2.2</span>
                     </span>
                 </div>
             </div>
@@ -4010,6 +4478,18 @@
 
     <script>
         // ============================================================
+        // ===== SAFETY NET: Suppress JSONP race-condition errors =====
+        // ============================================================
+        window.addEventListener('error', (e) => {
+            if (e.message && e.message.includes('jsonp') &&
+                (e.message.includes('is not defined') || e.message.includes('not defined'))) {
+                console.warn('[Safety Net] JSONP race condition ter-suppress:', e.message);
+                e.preventDefault();
+                return true;
+            }
+        }, true);
+
+        // ============================================================
         // ===== KONFIGURASI =====
         // ============================================================
         const APP_SETTINGS = {
@@ -4049,9 +4529,9 @@
         // ============================================================
         class AppState {
             constructor() {
-                this.role = null;              // 'admin' | 'voter' | null
+                this.role = null;
                 this.adminToken = null;
-                this.loginMode = 'voter';      // 'voter' | 'admin'
+                this.loginMode = 'voter';
                 this.voter = null;
                 this.candidates = { ketua: [], wakil: [] };
                 this.selections = { ketua: null, wakil: null };
@@ -4180,7 +4660,6 @@
             participationBarVotedPct: document.getElementById('participation-bar-voted-pct'),
             participationBarNotVotedPct: document.getElementById('participation-bar-not-voted-pct'),
             participationPageChart: document.getElementById('participation-page-chart'),
-            // Admin login
             adminModeToggle: document.getElementById('admin-mode-toggle'),
             adminToggleText: document.getElementById('admin-toggle-text'),
             adminPasswordInput: document.getElementById('admin-password'),
@@ -4191,11 +4670,9 @@
             loginSubmitText: document.getElementById('login-submit-text'),
             welcomeBoxVoter: document.getElementById('welcome-box-voter'),
             welcomeBoxAdmin: document.getElementById('welcome-box-admin'),
-            // Admin dashboard
             adminTotalVotes: document.getElementById('admin-total-votes'),
             adminParticipation: document.getElementById('admin-participation'),
             adminLogoutBtn: document.getElementById('admin-logout-btn'),
-            // Voters list
             votersSearchInput: document.getElementById('voters-search-input'),
             votersList: document.getElementById('voters-list'),
             votersTotal: document.getElementById('voters-total'),
@@ -4421,8 +4898,31 @@
         // ===== UTILS =====
         // ============================================================
         const utils = {
+            // ⭐ Reference counter untuk loader — mencegah flicker/nyangkut
+            _loaderCount: 0,
+
             toggleLoader(show) {
-                if (elements.loader) elements.loader.classList.toggle('hidden', !show);
+                if (!elements.loader) return;
+
+                // Increment / decrement counter
+                if (show) {
+                    this._loaderCount++;
+                } else {
+                    this._loaderCount = Math.max(0, this._loaderCount - 1);
+                }
+
+                // Loader HANYA hilang jika tidak ada request aktif
+                if (this._loaderCount > 0) {
+                    elements.loader.classList.remove('hidden');
+                } else {
+                    elements.loader.classList.add('hidden');
+                }
+            },
+
+            // Force hide loader (emergency / logout / page change)
+            forceHideLoader() {
+                this._loaderCount = 0;
+                if (elements.loader) elements.loader.classList.add('hidden');
             },
 
             showNotification(message, type = 'info', duration = CONFIG.NOTIFICATION_DURATION) {
@@ -4499,6 +4999,10 @@
                     this.showNotification('Anda tidak memiliki akses ke halaman ini.', 'error');
                     return;
                 }
+
+                // ⭐ Reset loader counter setiap ganti halaman
+                this.forceHideLoader();
+
                 if (pageKey === 'adminDashboard' && typeof adminDashboardFlow !== 'undefined') {
                     adminDashboardFlow.refresh();
                 }
@@ -4711,34 +5215,83 @@
         // ===== API =====
         // ============================================================
         const api = {
+            // Counter global untuk callback name yang unik & tidak collision
+            _jsonpCounter: 0,
+            // Registry untuk callback yang aktif (untuk cleanup darurat)
+            _jsonpRegistry: new Map(),
+
             jsonpRequest(action, params, callback, options = {}) {
                 const timeout = options.timeout || APP_SETTINGS.JSONP_TIMEOUT_MS;
+
                 if (!appState.scriptUrl) {
                     utils.showNotification("URL Web App belum diatur.", "error");
                     utils.showPage('setup');
                     return;
                 }
-                utils.toggleLoader(true);
-                const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+
+                // === 1. Buat callback name yang BENAR-BENAR unik ===
+                const cbId = ++this._jsonpCounter;
+                const callbackName = `__jsonp_cb_${cbId}_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+
+                // === 2. Buat script element & DAFTARKAN CALLBACK SEBELUM appendChild ===
                 const script = document.createElement('script');
+                script.async = true;
                 let completed = false;
                 let timeoutId = null;
 
-                const cleanup = () => {
-                    if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
-                    delete window[callbackName];
-                    if (document.body.contains(script)) document.body.removeChild(script);
-                    utils.toggleLoader(false);
+                // Simpan referensi di registry untuk cleanup darurat
+                this._jsonpRegistry.set(callbackName, { script, isCompleted: () => completed });
+
+                // Cleanup helper — AMAN, tidak langsung hapus callback
+                const cleanup = (delayDelete = 5000) => {
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                        timeoutId = null;
+                    }
+
+                    try {
+                        if (script.parentNode) script.parentNode.removeChild(script);
+                    } catch (e) { /* ignore */ }
+
+                    // JANGAN langsung delete callback!
+                    setTimeout(() => {
+                        try {
+                            delete window[callbackName];
+                            this._jsonpRegistry.delete(callbackName);
+                        } catch (e) {
+                            try { window[callbackName] = function(){}; } catch(e2){}
+                        }
+                    }, delayDelete);
+
+                    // ⭐ SELALU panggil toggleLoader(false), wrap try-catch
+                    try {
+                        utils.toggleLoader(false);
+                    } catch (e) {
+                        console.warn('[JSONP] toggleLoader error:', e);
+                        utils.forceHideLoader();
+                    }
                 };
 
+                // === 3. Daftarkan callback di window SEBELUM script di-append ===
                 window[callbackName] = function(data) {
-                    if (completed) return;
+                    if (completed) {
+                        console.warn('[JSONP] Callback dipanggil setelah selesai:', callbackName);
+                        return;
+                    }
                     completed = true;
                     cleanup();
-                    callback(data);
+                    try {
+                        callback(data);
+                    } catch (err) {
+                        console.error('[JSONP] Callback error:', err);
+                        utils.showNotification('Gagal memproses data dari server.', 'error', 8000);
+                    }
                 };
 
-                let url = `${appState.scriptUrl}?action=${action}&callback=${callbackName}`;
+                // === 4. Build URL dengan CACHE BUSTER ===
+                const cacheBuster = `_t=${Date.now()}_${cbId}`;
+                let url = `${appState.scriptUrl}?action=${encodeURIComponent(action)}&callback=${callbackName}&${cacheBuster}`;
+
                 if (params) {
                     Object.keys(params).forEach(key => {
                         if (params[key] !== undefined && params[key] !== null) {
@@ -4747,32 +5300,50 @@
                     });
                 }
 
+                // === 5. Increment loader & timeout handler ===
+                utils.toggleLoader(true);
+
                 timeoutId = setTimeout(() => {
                     if (completed) return;
                     completed = true;
-                    cleanup();
-                    console.error('JSONP Timeout:', { action, url });
-                    utils.showNotification(`Koneksi timeout. Server tidak merespons.`, 'error', 8000);
+                    cleanup(10000);
+                    console.warn('[JSONP] Timeout:', { action, url });
+                    utils.showNotification(
+                        'Koneksi timeout. Server tidak merespons.',
+                        'error',
+                        8000
+                    );
                 }, timeout);
 
+                // === 6. Error handler ===
                 script.onerror = () => {
                     if (completed) return;
                     completed = true;
                     cleanup();
-                    utils.showNotification('Gagal terhubung ke server.', 'error', 8000);
+                    console.error('[JSONP] Script error:', { action, url });
+                    utils.showNotification(
+                        'Gagal terhubung ke server.',
+                        'error',
+                        8000
+                    );
                 };
 
+                // === 7. Load handler ===
                 script.onload = () => {
                     setTimeout(() => {
                         if (completed) return;
-                        if (typeof window[callbackName] === 'function') {
-                            completed = true;
-                            cleanup();
-                            utils.showNotification('Response server tidak valid.', 'error', 10000);
-                        }
-                    }, 500);
+                        completed = true;
+                        cleanup(10000);
+                        console.warn('[JSONP] Silent failure:', { action, url });
+                        utils.showNotification(
+                            'Response server tidak valid.',
+                            'error',
+                            8000
+                        );
+                    }, 800);
                 };
 
+                // === 8. Simpan src dan appendChild (paling akhir!) ===
                 script.src = url;
                 document.body.appendChild(script);
             },
@@ -4977,7 +5548,6 @@
                     container.appendChild(card);
                     card.addEventListener('click', () => this.handleCandidateSelection(card, position));
 
-                    // 🐛 FIX BUG #3: Restore selected state
                     const existing = appState.selections[position];
                     if (existing && existing.id === candidate.id) {
                         card.classList.add('selected');
@@ -5277,6 +5847,7 @@
         const participationFlow = {
             lastParticipationValue: undefined,
             lastMilestoneMax: false,
+            currentMilestoneLevel: -1,
 
             startRefreshTimer() {
                 appState.participationTimerSeconds = CONFIG.REFRESH_SECONDS;
@@ -5331,10 +5902,180 @@
                 }
             },
 
+            generateRingTicks() {
+                const container = document.getElementById('ring-ticks');
+                if (!container || container.dataset.ready === '1') return;
+
+                const TOTAL = 40;
+                const MAJOR_EVERY = 5;
+                const RADIUS_PCT = 48;
+
+                const frag = document.createDocumentFragment();
+                for (let i = 0; i < TOTAL; i++) {
+                    const isMajor = i % MAJOR_EVERY === 0;
+                    const angleDeg = (i / TOTAL) * 360;
+                    const angleRad = (angleDeg - 90) * Math.PI / 180;
+
+                    const cx = 50 + RADIUS_PCT * Math.cos(angleRad);
+                    const cy = 50 + RADIUS_PCT * Math.sin(angleRad);
+
+                    const tick = document.createElement('div');
+                    tick.className = 'ring-tick' + (isMajor ? ' major' : '');
+                    tick.style.left = cx + '%';
+                    tick.style.top  = cy + '%';
+                    tick.style.setProperty('--tick-rotate', angleDeg + 'deg');
+                    tick.dataset.tickPct = ((i / TOTAL) * 100).toFixed(2);
+                    frag.appendChild(tick);
+                }
+                container.appendChild(frag);
+                container.dataset.ready = '1';
+            },
+
+            generateOrbitParticles() {
+                const container = document.getElementById('ring-orbit-particles');
+                if (!container || container.dataset.ready === '1') return;
+
+                const variants = ['', 'gold', 'pink'];
+                const TOTAL = 6;
+                const RADIUS_PCT = 49;
+
+                const frag = document.createDocumentFragment();
+                for (let i = 0; i < TOTAL; i++) {
+                    const angle = (i / TOTAL) * 360;
+                    const rad = (angle - 90) * Math.PI / 180;
+                    const p = document.createElement('div');
+                    p.className = 'ring-orbit-particle ' + variants[i % variants.length];
+                    p.style.left = (50 + RADIUS_PCT * Math.cos(rad)) + '%';
+                    p.style.top  = (50 + RADIUS_PCT * Math.sin(rad)) + '%';
+                    p.style.animationDelay = (i * 0.3) + 's';
+                    frag.appendChild(p);
+                }
+                container.appendChild(frag);
+                container.dataset.ready = '1';
+            },
+
+            generateHeroBubbles() {
+                const container = document.getElementById('hero-bubbles');
+                if (!container || container.dataset.ready === '1') return;
+
+                const TOTAL = 10;
+                const frag = document.createDocumentFragment();
+                for (let i = 0; i < TOTAL; i++) {
+                    const b = document.createElement('div');
+                    b.className = 'hero-bubble';
+                    const size = 6 + Math.random() * 16;
+                    b.style.width = size + 'px';
+                    b.style.height = size + 'px';
+                    b.style.left = (5 + Math.random() * 90) + '%';
+                    b.style.bottom = (-10 + Math.random() * 20) + '%';
+                    b.style.animationDelay = (Math.random() * 9) + 's';
+                    b.style.animationDuration = (7 + Math.random() * 4) + 's';
+                    frag.appendChild(b);
+                }
+                container.appendChild(frag);
+                container.dataset.ready = '1';
+            },
+
+            updateComet(percentage) {
+                const comet = document.getElementById('ring-leading-dot');
+                if (!comet) return;
+
+                const clamped = Math.max(0, Math.min(100, percentage));
+                const angleDeg = clamped * 3.6 - 90;
+                const rad = angleDeg * Math.PI / 180;
+                const R = 42.5;
+
+                comet.style.left = (50 + R * Math.cos(rad)) + '%';
+                comet.style.top  = (50 + R * Math.sin(rad)) + '%';
+                comet.style.setProperty('--comet-tail-angle', (angleDeg + 180) + 'deg');
+            },
+
+            updateRingTicks(percentage) {
+                const ticks = document.querySelectorAll('#ring-ticks .ring-tick');
+                if (!ticks.length) return;
+                ticks.forEach(t => {
+                    const pct = parseFloat(t.dataset.tickPct);
+                    t.classList.toggle('passed', percentage >= pct);
+                });
+            },
+
+            flashPercent() {
+                const el = elements.participationRingPercent;
+                if (!el) return;
+                el.classList.remove('shine');
+                void el.offsetWidth;
+                el.classList.add('shine');
+                setTimeout(() => el.classList.remove('shine'), 1700);
+            },
+
+            flashMilestone() {
+                const el = elements.participationMilestone;
+                if (!el) return;
+                el.classList.remove('flash');
+                void el.offsetWidth;
+                el.classList.add('flash');
+                setTimeout(() => el.classList.remove('flash'), 1300);
+            },
+
+            burstFromRing() {
+                const wrapper = elements.participationRingWrapper;
+                if (!wrapper) return;
+                const rect = wrapper.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const R = rect.width * 0.42;
+
+                const colors = ['#fbbf24', '#f472b6', '#a78bfa', '#34d399', '#ffffff'];
+                const container = elements.participationBurstContainer;
+                if (!container) return;
+
+                for (let i = 0; i < 20; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const p = document.createElement('div');
+                    const size = 4 + Math.random() * 6;
+                    p.style.position = 'fixed';
+                    p.style.left = (cx + Math.cos(angle) * R) + 'px';
+                    p.style.top  = (cy + Math.sin(angle) * R) + 'px';
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.borderRadius = '50%';
+                    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    p.style.boxShadow = `0 0 10px ${p.style.background}`;
+                    p.style.pointerEvents = 'none';
+                    p.style.zIndex = '9999';
+                    p.style.transition = 'transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 1.1s ease-out';
+                    container.appendChild(p);
+
+                    requestAnimationFrame(() => {
+                        const dist = 60 + Math.random() * 90;
+                        p.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) scale(0.2)`;
+                        p.style.opacity = '0';
+                    });
+                    setTimeout(() => p.remove(), 1300);
+                }
+            },
+
+            emitRingWaves() {
+                const container = document.getElementById('ring-waves');
+                if (!container) return;
+                const variants = ['', 'violet', 'pink'];
+                for (let i = 0; i < 3; i++) {
+                    const w = document.createElement('div');
+                    w.className = `ring-wave emit ${variants[i]}`;
+                    w.style.animationDelay = (i * 0.18) + 's';
+                    container.appendChild(w);
+                    setTimeout(() => w.remove(), 2200);
+                }
+            },
+
             updateResults(resultsData) {
-                const totalVotes = resultsData.totalSuara || 0;
+                this.generateRingTicks();
+                this.generateOrbitParticles();
+                this.generateHeroBubbles();
+
+                const totalVotes   = resultsData.totalSuara || 0;
                 const totalPemilih = resultsData.totalPemilih || 0;
-                const notVoted = Math.max(0, totalPemilih - totalVotes);
+                const notVoted     = Math.max(0, totalPemilih - totalVotes);
                 const participation = totalPemilih > 0
                     ? parseFloat(((totalVotes / totalPemilih) * 100).toFixed(1))
                     : 0;
@@ -5342,17 +6083,25 @@
 
                 const isUpdate = this.lastParticipationValue !== undefined
                     && this.lastParticipationValue !== participation;
+                const prevLevel = this.currentMilestoneLevel ?? -1;
                 this.lastParticipationValue = participation;
+
+                const level = participation >= 85 ? 3
+                            : participation >= 60 ? 2
+                            : participation >= 30 ? 1 : 0;
+                const isLevelUp = level > prevLevel && prevLevel !== -1;
+                this.currentMilestoneLevel = level;
 
                 utils.animateCountUp(elements.participationTotalVotes, totalVotes);
                 utils.animateCountUp(elements.participationRateValue, participation, true);
-                if (elements.participationVoted) elements.participationVoted.textContent = totalVotes;
+                if (elements.participationVoted)    elements.participationVoted.textContent = totalVotes;
                 if (elements.participationNotVoted) elements.participationNotVoted.textContent = notVoted;
 
-                document.querySelectorAll('#participation-page .quick-stat-card').forEach(card => {
-                    card.classList.remove('flash-update');
-                    void card.offsetWidth;
-                    card.classList.add('flash-update');
+                document.querySelectorAll('#participation-page .quick-stat-card').forEach(c => {
+                    c.classList.remove('bump', 'flash-update');
+                    void c.offsetWidth;
+                    c.classList.add('bump');
+                    setTimeout(() => c.classList.remove('bump'), 800);
                 });
                 document.querySelectorAll('#participation-page .quick-stat-value').forEach(v => {
                     v.classList.remove('flash-text');
@@ -5362,46 +6111,62 @@
 
                 const circumference = 2 * Math.PI * 85;
                 const offset = circumference * (1 - participation / 100);
-                if (elements.participationRing) elements.participationRing.style.strokeDashoffset = offset;
-                if (elements.participationRingGlow) elements.participationRingGlow.style.strokeDashoffset = offset;
+                if (elements.participationRing)
+                    elements.participationRing.style.strokeDashoffset = offset;
+                if (elements.participationRingGlow)
+                    elements.participationRingGlow.style.strokeDashoffset = offset;
+
+                this.updateComet(participation);
+                this.updateRingTicks(participation);
 
                 this.animateNumber(elements.participationRingPercent, participation, '%');
+                if (isUpdate) setTimeout(() => this.flashPercent(), 250);
+
                 if (elements.participationRingVoted) elements.participationRingVoted.textContent = totalVotes;
                 if (elements.participationRingTotal) elements.participationRingTotal.textContent = totalPemilih;
 
                 if (isUpdate && elements.participationRingWrapper) {
-                    elements.participationRingWrapper.classList.remove('pulse');
-                    void elements.participationRingWrapper.offsetWidth;
-                    elements.participationRingWrapper.classList.add('pulse');
+                    const w = elements.participationRingWrapper;
+                    w.classList.remove('pulse');
+                    void w.offsetWidth;
+                    w.classList.add('pulse');
+                    setTimeout(() => w.classList.remove('pulse'), 1200);
+
+                    this.emitRingWaves();
                 }
 
-                document.querySelectorAll('#participation-page .ring-marker').forEach(marker => {
-                    const pct = parseFloat(marker.getAttribute('data-pct'));
+                document.querySelectorAll('#participation-page .ring-marker').forEach(m => {
+                    const pct = parseFloat(m.getAttribute('data-pct'));
                     const angle = (-90 + (pct / 100) * 360) * (Math.PI / 180);
                     const cx = 50 + 42.5 * Math.cos(angle);
                     const cy = 50 + 42.5 * Math.sin(angle);
-                    marker.style.left = `${cx}%`;
-                    marker.style.top = `${cy}%`;
-                    marker.style.transform = 'translate(-50%, -50%)';
-                    marker.classList.toggle('passed', participation >= pct);
+                    m.style.left = `${cx}%`;
+                    m.style.top  = `${cy}%`;
+                    m.style.transform = 'translate(-50%, -50%)';
+                    m.classList.toggle('passed', participation >= pct);
                 });
 
                 this.updateMilestone(participation);
+                if (isLevelUp) {
+                    this.flashMilestone();
+                    this.burstFromRing();
+                    if (level === 3) this.burstConfetti();
+                }
                 this.toggleCrowns(participation >= 85);
 
                 if (participation >= 85 && this.lastMilestoneMax !== true) {
                     this.lastMilestoneMax = true;
-                    this.burstConfetti();
+                    setTimeout(() => this.burstConfetti(), 400);
                 } else if (participation < 85) {
                     this.lastMilestoneMax = false;
                 }
 
-                if (elements.participationBarVoted) elements.participationBarVoted.style.width = `${participation}%`;
-                if (elements.participationBarNotVoted) elements.participationBarNotVoted.style.width = `${notVotedPct}%`;
-                if (elements.participationBarVotedValue) elements.participationBarVotedValue.textContent = totalVotes;
+                if (elements.participationBarVoted)         elements.participationBarVoted.style.width = `${participation}%`;
+                if (elements.participationBarNotVoted)      elements.participationBarNotVoted.style.width = `${notVotedPct}%`;
+                if (elements.participationBarVotedValue)    elements.participationBarVotedValue.textContent = totalVotes;
                 if (elements.participationBarNotVotedValue) elements.participationBarNotVotedValue.textContent = notVoted;
-                if (elements.participationBarVotedPct) elements.participationBarVotedPct.textContent = `(${participation}%)`;
-                if (elements.participationBarNotVotedPct) elements.participationBarNotVotedPct.textContent = `(${notVotedPct}%)`;
+                if (elements.participationBarVotedPct)      elements.participationBarVotedPct.textContent = `(${participation}%)`;
+                if (elements.participationBarNotVotedPct)   elements.participationBarNotVotedPct.textContent = `(${notVotedPct}%)`;
 
                 const chartData = {
                     labels: ['Sudah Memilih', 'Belum Memilih'],
@@ -5412,7 +6177,6 @@
                         borderWidth: 3, hoverOffset: 8
                     }]
                 };
-
                 if (appState.charts.participationPage) {
                     appState.charts.participationPage.data = chartData;
                     appState.charts.participationPage.update();
@@ -5523,6 +6287,10 @@
             showParticipationPage() {
                 utils.showPage('participation');
                 this.generateRingSparkles();
+                this.generateRingTicks();
+                this.generateOrbitParticles();
+                this.generateHeroBubbles();
+                this.updateComet(0);
                 api.fetchAndDrawParticipation();
                 this.startRefreshTimer();
                 if (appState.participationRefreshInterval) clearInterval(appState.participationRefreshInterval);
@@ -5698,7 +6466,6 @@
                     return true;
                 };
 
-                // Setup form
                 safeOn(elements.setupForm, 'submit', (e) => {
                     e.preventDefault();
                     const url = elements.scriptUrlInput.value.trim();
@@ -5712,7 +6479,6 @@
                     } else utils.showNotification("URL tidak boleh kosong.", "error");
                 }, 'setupForm');
 
-                // Login form (voter + admin)
                 safeOn(elements.loginForm, 'submit', (e) => {
                     e.preventDefault();
                     if (appState.loginMode === 'admin') {
@@ -5726,13 +6492,11 @@
                     }
                 }, 'loginForm');
 
-                // Admin/pemilih toggle
                 safeOn(elements.adminModeToggle, 'click', () => {
                     appState.loginMode = appState.loginMode === 'voter' ? 'admin' : 'voter';
                     this.updateLoginModeUI();
                 }, 'adminModeToggle');
 
-                // Admin menu cards
                 document.querySelectorAll('.admin-menu-card').forEach(card => {
                     card.addEventListener('click', () => {
                         const target = card.getAttribute('data-target');
@@ -5743,7 +6507,6 @@
                     });
                 });
 
-                // Admin logout
                 safeOn(elements.adminLogoutBtn, 'click', () => {
                     appState.role = null;
                     appState.adminToken = null;
@@ -5755,17 +6518,14 @@
                     utils.showNotification('Anda telah keluar dari mode admin.', 'info');
                 }, 'adminLogoutBtn');
 
-                // Back to admin dashboard
                 safeOn(elements.backToAdminDashboardBtn, 'click',
                     () => utils.showPage('adminDashboard'), 'backToAdminDashboardBtn');
 
-                // Voters search
                 safeOn(elements.votersSearchInput, 'input', (e) => {
                     adminVotersFlow.searchTerm = e.target.value;
                     adminVotersFlow.render();
                 }, 'votersSearchInput');
 
-                // Navigation buttons
                 const goHome = () => {
                     if (appState.role === 'admin') {
                         utils.showPage('adminDashboard');
@@ -5797,7 +6557,6 @@
                 safeOn(elements.navSettingsBtn, 'click', goSettings, 'navSettingsBtn');
                 safeOn(elements.navSettingsBtnBottom, 'click', goSettings, 'navSettingsBtnBottom');
 
-                // Voter logout
                 safeOn(elements.logoutBtn, 'click', () => {
                     appState.resetAll();
                     appState.role = null;
@@ -5810,12 +6569,10 @@
                     utils.showNotification('Anda telah keluar dari sistem', 'info');
                 }, 'logoutBtn');
 
-                // Vote flow buttons
                 safeOn(elements.nextToWakilBtn, 'click', () => voteFlow.showVoteWakilPage(), 'nextToWakilBtn');
                 safeOn(elements.backToKetuaBtn, 'click', () => voteFlow.showVoteKetuaPage(), 'backToKetuaBtn');
                 safeOn(elements.submitAllVotesBtn, 'click', () => voteFlow.showConfirmationModal(), 'submitAllVotesBtn');
 
-                // Modal buttons
                 safeOn(elements.confirmVoteBtn, 'click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -5841,7 +6598,6 @@
 
                 safeOn(elements.notificationClose, 'click', () => utils.hideNotification(), 'notificationClose');
 
-                // Slideshow
                 safeOn(elements.slidePrev, 'click', () => slideshowFlow.prevSlide(), 'slidePrev');
                 safeOn(elements.slideNext, 'click', () => slideshowFlow.nextSlide(), 'slideNext');
 
@@ -5906,10 +6662,8 @@
 
                 particleBackground.init();
 
-                // Sembunyikan menu admin-only
                 utils.updateNavVisibility();
 
-                // Restore admin session
                 const savedAdmin = sessionStorage.getItem('adminSession');
                 if (savedAdmin) {
                     try {
